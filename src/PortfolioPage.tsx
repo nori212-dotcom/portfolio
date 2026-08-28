@@ -7,6 +7,8 @@ import gallery3 from "@/imports/PixoraPortfolio-1/19b825796c8b29c56a27f3fbc5148b
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 
+export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
+
 export const PROJECTS = [
   { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: gallery1 },
   { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: gallery2 },
@@ -195,7 +197,7 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
               <div className="absolute top-full left-0 pt-2 z-50 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-out">
                 <div className="bg-white border border-[#eaeaea] rounded-xl shadow-lg p-2 min-w-[120px] flex flex-col gap-1">
                   <a
-                    href="https://github.com/"
+                    href={GITHUB_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors whitespace-nowrap"
@@ -381,7 +383,7 @@ function Hero({ loaded }: { loaded: boolean }) {
             } : { opacity: 0 }}
           >
             {[
-              { label: "GitHub", href: "https://github.com/" },
+              { label: "GitHub", href: GITHUB_URL },
               { label: "Resume", href: "#" },
             ].map(({ label, href }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 group text-[#1a1a1a] text-[16px] hover:text-[#ff4e11] transition-colors">
@@ -881,14 +883,19 @@ export function ContactSection() {
             </button>
           </div>
           <div className="flex gap-5 pt-0">
-            {["GitHub", "Resume"].map((social) => (
+            {[
+              { label: "GitHub", href: GITHUB_URL },
+              { label: "Resume", href: "#" },
+            ].map(({ label, href }) => (
               <a
-                key={social}
-                href="#"
+                key={label}
+                href={href}
+                target={href === "#" ? undefined : "_blank"}
+                rel={href === "#" ? undefined : "noopener noreferrer"}
                 className="flex items-center gap-2 rounded-full bg-white/[0.04] px-7 py-3 text-[15px] text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 style={{ fontFamily: "'Space Grotesk:Regular', sans-serif" }}
               >
-                {social}<span aria-hidden>↗</span>
+                {label}<span aria-hidden>↗</span>
               </a>
             ))}
           </div>

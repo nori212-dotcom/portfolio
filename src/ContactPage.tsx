@@ -24,8 +24,8 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white text-[#111]">
       <BottomBlurVeil />
       <header className="flex items-center justify-between border-b border-black/10 bg-white px-8 py-6 md:px-12" style={{ animation: "fade-in 0.7s ease both" }}>
-        <a href="/" className="text-[28px] font-bold tracking-[-1px] text-[#ff4e11]" style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}>
-          이승운
+        <a href="/" className="text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
+          Seung Woon
         </a>
         <nav className="flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
           <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>

@@ -242,9 +242,9 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="absolute left-1/2 -translate-x-1/2 text-[#ff4e11] text-[28px] whitespace-nowrap flex cursor-pointer bg-transparent border-none outline-none pb-1.5"
-        style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
+        style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
       >
-        {"이승운".split("").map((ch, i) => (
+        {"Seung Woon".split("").map((ch, i) => (
           <span
             key={i}
             className="inline-block"
@@ -372,7 +372,7 @@ function Hero({ loaded }: { loaded: boolean }) {
                 </span>
               ))}
             </p>
-            <img src={signatureImg} alt="이승운 서명" className="w-[200px] object-contain object-left -ml-2 -mt-5" />
+            <img src={signatureImg} alt="Seung Lee 서명" className="w-[200px] object-contain object-left -ml-2 -mt-5" />
           </div>
           {/* Socials pinned to bottom */}
           <div

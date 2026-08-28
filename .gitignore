@@ -21,3 +21,6 @@ logs/
 /.claude/
 /.figma/
 /.mcp.json
+
+# Local reference material — not for the public repo
+/132.pdf

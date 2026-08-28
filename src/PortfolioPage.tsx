@@ -8,6 +8,7 @@ import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e72
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
+export const RESUME_URL = "/resume.pdf";
 
 export const PROJECTS = [
   { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: gallery1 },
@@ -206,7 +207,9 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
                     GitHub
                   </a>
                   <a
-                    href="#"
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors whitespace-nowrap"
                     style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
                   >
@@ -384,7 +387,7 @@ function Hero({ loaded }: { loaded: boolean }) {
           >
             {[
               { label: "GitHub", href: GITHUB_URL },
-              { label: "Resume", href: "#" },
+              { label: "Resume", href: RESUME_URL },
             ].map(({ label, href }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 group text-[#1a1a1a] text-[16px] hover:text-[#ff4e11] transition-colors">
                 <span style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>{label}</span>
@@ -885,13 +888,13 @@ export function ContactSection() {
           <div className="flex gap-5 pt-0">
             {[
               { label: "GitHub", href: GITHUB_URL },
-              { label: "Resume", href: "#" },
+              { label: "Resume", href: RESUME_URL },
             ].map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
-                target={href === "#" ? undefined : "_blank"}
-                rel={href === "#" ? undefined : "noopener noreferrer"}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full bg-white/[0.04] px-7 py-3 text-[15px] text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 style={{ fontFamily: "'Space Grotesk:Regular', sans-serif" }}
               >

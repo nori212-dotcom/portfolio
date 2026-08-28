@@ -138,7 +138,7 @@ function Header() {
   return (
     <div className="bg-white content-stretch flex gap-[363px] items-center px-[40px] py-[24px] relative shrink-0 w-full" data-name="header">
       <NavLeft />
-      <p className="[word-break:break-word] font-['Space_Grotesk:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ff4e11] text-[28px] whitespace-nowrap">Seung Woon</p>
+      <p className="[word-break:break-word] font-['Wanted_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ff4e11] text-[28px] whitespace-nowrap">이승운</p>
       <NavRight />
     </div>
   );

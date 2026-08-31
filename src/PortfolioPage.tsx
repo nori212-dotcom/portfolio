@@ -717,10 +717,18 @@ function GalleryRow({ reverse = false }: { reverse?: boolean }) {
         {imgs.map((img, i) => (
           <div
             key={i}
-            className="shrink-0 rounded-2xl overflow-hidden bg-[#f5f5f5]"
+            className="relative shrink-0 overflow-hidden rounded-2xl bg-[#0a0a0a]"
             style={{ width: 480, height: 360 }}
           >
-            <img src={img} alt="" className="w-full h-full object-cover" />
+            {/* Blurred fill so the full image can sit un-cropped */}
+            <img
+              src={img}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full scale-125 object-cover blur-2xl"
+              style={{ opacity: 0.55 }}
+            />
+            <img src={img} alt="" className="relative h-full w-full object-contain" />
           </div>
         ))}
       </div>

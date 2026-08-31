@@ -5,12 +5,16 @@ import ProjectCoupangEats from "@/ProjectCoupangEats";
 
 function WheelScrollSmoother() {
   useEffect(() => {
-    if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) {
+      // No custom smoother here — still honor the shared "scroll to top" request.
+      const onScrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+      window.addEventListener("app:scroll-to-top", onScrollToTop);
+      return () => window.removeEventListener("app:scroll-to-top", onScrollToTop);
+    }
 
     let targetY = window.scrollY;
     let frameId = 0;
     let isSmoothing = false;
-    let isReturningToTop = false;
 
     const syncTarget = () => {
       if (!isSmoothing) targetY = window.scrollY;
@@ -18,12 +22,11 @@ function WheelScrollSmoother() {
 
     const animate = () => {
       const currentY = window.scrollY;
-      const nextY = currentY + (targetY - currentY) * (isReturningToTop ? 0.045 : 0.18);
+      const nextY = currentY + (targetY - currentY) * 0.18;
 
       if (Math.abs(targetY - currentY) < 0.5) {
         window.scrollTo(0, targetY);
         isSmoothing = false;
-        isReturningToTop = false;
         frameId = 0;
         return;
       }
@@ -44,10 +47,15 @@ function WheelScrollSmoother() {
     };
 
     const scrollToTop = () => {
+      // Hand off to the browser's native smooth scroll — it actually reaches 0
+      // quickly instead of the wheel smoother's slow asymptotic glide.
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+      isSmoothing = false;
       targetY = 0;
-      isSmoothing = true;
-      isReturningToTop = true;
-      if (!frameId) frameId = requestAnimationFrame(animate);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });

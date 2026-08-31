@@ -705,18 +705,18 @@ function ProjectsSection() {
         </div>
       ))}
 
-      {/* Floating preview image */}
+      {/* Floating preview image — natural aspect ratio, centered on the cursor */}
       {hovered !== null && (
-        <FramedImage
+        <img
           src={PROJECTS[hovered].img}
           alt={PROJECTS[hovered].title}
-          className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl transition-opacity duration-200"
+          className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl"
           style={{
-            width: 280,
-            height: 200,
-            left: mousePos.x - 140,
-            top: mousePos.y - 120,
-            opacity: 1,
+            width: 320,
+            height: "auto",
+            left: mousePos.x,
+            top: mousePos.y,
+            transform: "translate(-50%, -50%)",
           }}
         />
       )}

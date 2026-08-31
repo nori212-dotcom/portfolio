@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a745f887b21.png";
-import { BottomBlurVeil, ContactSection, FooterBar, GITHUB_URL, RESUME_URL } from "@/PortfolioPage";
+import { BottomBlurVeil, ContactSection, FooterBar, GITHUB_URL, PROJECTS, RESUME_URL } from "@/PortfolioPage";
 
 const INTERESTS = ["브랜딩", "디자인 콘셉트", "앱 디자인", "안드로이드 개발", "iOS 개발", "로고", "웹 디자인"];
 
@@ -30,9 +30,16 @@ export function ContactHeader() {
         </div>
         <div className="group relative">
           <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
-          <div className="invisible absolute right-0 top-full z-20 mt-3 w-40 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-            <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">All projects</a>
-            <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">Featured work</a>
+          <div className="invisible absolute right-0 top-full z-20 mt-3 w-44 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+            {PROJECTS.map((p, idx) => (
+              <a
+                key={p.title}
+                href={p.href ?? `/#project-${idx}`}
+                className="block whitespace-nowrap rounded px-3 py-2 hover:bg-black/5"
+              >
+                {p.title}
+              </a>
+            ))}
           </div>
         </div>
         <a href="/contact" className={onContactPage ? "text-[#ff4e11]" : "hover:text-[#ff4e11]"}>CONTACT</a>

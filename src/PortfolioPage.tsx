@@ -660,7 +660,7 @@ function ProjectsSection() {
     <section
       id="projects"
       ref={ref}
-      className="bg-white w-full px-20 py-0 relative overflow-hidden scroll-mt-[100px]"
+      className="bg-white w-full px-20 py-0 relative overflow-x-clip scroll-mt-[100px]"
       onMouseMove={handleMouseMove}
     >
       {PROJECTS.map((p, i) => (

@@ -11,11 +11,11 @@ export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
 export const RESUME_URL = "/resume.pdf";
 
 export const PROJECTS = [
-  { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: gallery1 },
+  { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: gallery1, href: "/projects/coupang-eats" },
   { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: gallery2 },
   { title: "SPACE NEEDLE", cat: "UX/UI, 개발", img: gallery3 },
   { title: "FABRIC", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
-];
+] as { title: string; cat: string; img: string; href?: string }[];
 
 /* ─── Preloader ─────────────────────────────────────────────────────────────── */
 function Preloader({ onDone }: { onDone: () => void }) {
@@ -641,26 +641,37 @@ function ProjectsSection() {
           onMouseEnter={() => setHovered(i)}
           onMouseLeave={() => setHovered(null)}
         >
-          <div className="flex items-center justify-between py-10">
-            <h3
-              className="text-[#0a0a0a] transition-colors duration-200 group-hover:text-[#ff4e11]"
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 800,
-                fontSize: "clamp(36px,4.5vw,72px)",
-                lineHeight: "92px",
-                textTransform: "uppercase",
-              }}
-            >
-              {p.title}
-            </h3>
-            <p
-              className="text-[#666] text-[16px] text-right whitespace-nowrap ml-8"
-              style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif", fontStyle: "italic" }}
-            >
-              {p.cat}
-            </p>
-          </div>
+          {(() => {
+            const Row = (
+              <div className="flex items-center justify-between py-10">
+                <h3
+                  className="text-[#0a0a0a] transition-colors duration-200 group-hover:text-[#ff4e11]"
+                  style={{
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontWeight: 800,
+                    fontSize: "clamp(36px,4.5vw,72px)",
+                    lineHeight: "92px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {p.title}
+                </h3>
+                <p
+                  className="text-[#666] text-[16px] text-right whitespace-nowrap ml-8"
+                  style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif", fontStyle: "italic" }}
+                >
+                  {p.cat}
+                </p>
+              </div>
+            );
+            return p.href ? (
+              <a href={p.href} className="block">
+                {Row}
+              </a>
+            ) : (
+              Row
+            );
+          })()}
         </div>
       ))}
 
@@ -911,12 +922,14 @@ export function ContactSection() {
 /* ─── Footer bar ─────────────────────────────────────────────────────────────── */
 export function FooterBar() {
   const scrollToTop = () => window.dispatchEvent(new Event("app:scroll-to-top"));
-  const isContactPage = window.location.pathname.replace(/\/+$/, "") === "/contact";
+  const path = window.location.pathname.replace(/\/+$/, "");
+  const isHome = path === "";
+  const isContactPage = path === "/contact";
   const links = [
     { label: "Home", target: "top", href: "/" },
-    { label: "About", target: "about", href: isContactPage ? "/#about" : "#about" },
-    { label: "Projects", target: "projects", href: isContactPage ? "/#projects" : "#projects" },
-    { label: "Contact", target: "contact", href: isContactPage ? "/contact" : "/contact" },
+    { label: "About", target: "about", href: isHome ? "#about" : "/#about" },
+    { label: "Projects", target: "projects", href: isHome ? "#projects" : "/#projects" },
+    { label: "Contact", target: "contact", href: "/contact" },
   ];
 
   return (
@@ -936,10 +949,10 @@ export function FooterBar() {
             key={target}
             href={href}
             onClick={(e) => {
-              if (target === "top" && !isContactPage) {
+              if (target === "top" && isHome) {
                 e.preventDefault();
                 scrollToTop();
-              } else if ((target === "about" || target === "projects") && !isContactPage) {
+              } else if ((target === "about" || target === "projects") && isHome) {
                 e.preventDefault();
                 // Keep section navigation on the current page and animate it.
                 window.requestAnimationFrame(() => scrollToElementWithOffset(target, 100));

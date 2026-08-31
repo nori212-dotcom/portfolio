@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PortfolioPage from "@/PortfolioPage";
 import ContactPage from "@/ContactPage";
+import ProjectCoupangEats from "@/ProjectCoupangEats";
 
 function WheelScrollSmoother() {
   useEffect(() => {
@@ -92,7 +93,9 @@ function BackToTopButton() {
 }
 
 export default function App() {
-  const isContactPage = window.location.pathname.replace(/\/+$/, "") === "/contact";
+  const path = window.location.pathname.replace(/\/+$/, "");
+  const isContactPage = path === "/contact";
+  const isCoupangProject = path === "/projects/coupang-eats";
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -123,7 +126,7 @@ export default function App() {
     <div className="w-full overflow-x-hidden">
       <WheelScrollSmoother />
       <BackToTopButton />
-      {isContactPage ? <ContactPage /> : <PortfolioPage />}
+      {isContactPage ? <ContactPage /> : isCoupangProject ? <ProjectCoupangEats /> : <PortfolioPage />}
     </div>
   );
 }

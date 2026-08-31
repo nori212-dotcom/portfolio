@@ -164,12 +164,12 @@ const scrollToElementWithOffset = (id: string, offset = 100) => {
 };
 
 const goToMain = () => {
-  const atCleanRoot = window.location.pathname === "/" && !window.location.hash;
-  if (atCleanRoot) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } else {
-    window.location.href = "/";
+  if (window.location.pathname === "/" && !window.location.hash && window.scrollY < 4) {
+    // Already at the top of a clean main page — nothing to do.
+    return;
   }
+  // Reload the clean main page from the top (also clears any #hash).
+  window.location.assign("/");
 };
 
 const NAV_ACTIONS: Record<string, () => void> = {

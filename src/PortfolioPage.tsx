@@ -616,6 +616,34 @@ function SkillsSection() {
   );
 }
 
+/* ─── Framed image (full image, blurred backdrop fills the letterbox) ────────── */
+function FramedImage({
+  src,
+  alt = "",
+  className = "",
+  style,
+}: {
+  src: string;
+  alt?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div className={"overflow-hidden bg-[#0a0a0a] " + className} style={style}>
+      <div className="relative h-full w-full">
+        <img
+          src={src}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full scale-125 object-cover blur-2xl"
+          style={{ opacity: 0.55 }}
+        />
+        <img src={src} alt={alt} className="relative h-full w-full object-contain" />
+      </div>
+    </div>
+  );
+}
+
 /* ─── Projects ───────────────────────────────────────────────────────────────── */
 function ProjectsSection() {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -679,8 +707,10 @@ function ProjectsSection() {
 
       {/* Floating preview image */}
       {hovered !== null && (
-        <div
-          className="pointer-events-none absolute z-20 rounded-2xl overflow-hidden shadow-2xl transition-opacity duration-200"
+        <FramedImage
+          src={PROJECTS[hovered].img}
+          alt={PROJECTS[hovered].title}
+          className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl transition-opacity duration-200"
           style={{
             width: 280,
             height: 200,
@@ -688,13 +718,7 @@ function ProjectsSection() {
             top: mousePos.y - 120,
             opacity: 1,
           }}
-        >
-          <img
-            src={PROJECTS[hovered].img}
-            alt={PROJECTS[hovered].title}
-            className="w-full h-full object-cover"
-          />
-        </div>
+        />
       )}
     </section>
   );
@@ -715,21 +739,12 @@ function GalleryRow({ reverse = false }: { reverse?: boolean }) {
         }}
       >
         {imgs.map((img, i) => (
-          <div
+          <FramedImage
             key={i}
-            className="relative shrink-0 overflow-hidden rounded-2xl bg-[#0a0a0a]"
+            src={img}
+            className="shrink-0 rounded-2xl"
             style={{ width: 480, height: 360 }}
-          >
-            {/* Blurred fill so the full image can sit un-cropped */}
-            <img
-              src={img}
-              alt=""
-              aria-hidden
-              className="absolute inset-0 h-full w-full scale-125 object-cover blur-2xl"
-              style={{ opacity: 0.55 }}
-            />
-            <img src={img} alt="" className="relative h-full w-full object-contain" />
-          </div>
+          />
         ))}
       </div>
     </div>

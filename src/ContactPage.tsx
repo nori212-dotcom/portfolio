@@ -12,6 +12,35 @@ function ArrowIcon() {
   );
 }
 
+export function ContactHeader() {
+  const onContactPage = window.location.pathname.replace(/\/+$/, "") === "/contact";
+  return (
+    <header className="flex items-center justify-between border-b border-black/10 bg-white px-8 py-6 md:px-12" style={{ animation: "fade-in 0.7s ease both" }}>
+      <a href="/" className="text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
+        Seung Woon
+      </a>
+      <nav className="flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
+        <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
+        <div className="group relative">
+          <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PAGES <ArrowIcon /></button>
+          <div className="invisible absolute right-0 top-full z-20 mt-3 w-32 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">GitHub</a>
+            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">Resume</a>
+          </div>
+        </div>
+        <div className="group relative">
+          <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
+          <div className="invisible absolute right-0 top-full z-20 mt-3 w-40 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+            <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">All projects</a>
+            <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">Featured work</a>
+          </div>
+        </div>
+        <a href="/contact" className={onContactPage ? "text-[#ff4e11]" : "hover:text-[#ff4e11]"}>CONTACT</a>
+      </nav>
+    </header>
+  );
+}
+
 export default function ContactPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const [sent, setSent] = useState(false);
@@ -23,29 +52,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white text-[#111]">
       <BottomBlurVeil />
-      <header className="flex items-center justify-between border-b border-black/10 bg-white px-8 py-6 md:px-12" style={{ animation: "fade-in 0.7s ease both" }}>
-        <a href="/" className="text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
-          Seung Woon
-        </a>
-        <nav className="flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
-          <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
-          <div className="group relative">
-            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PAGES <ArrowIcon /></button>
-            <div className="invisible absolute right-0 top-full z-20 mt-3 w-32 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">GitHub</a>
-              <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">Resume</a>
-            </div>
-          </div>
-          <div className="group relative">
-            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
-            <div className="invisible absolute right-0 top-full z-20 mt-3 w-40 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-              <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">All projects</a>
-              <a href="/#projects" className="block rounded px-3 py-2 hover:bg-black/5">Featured work</a>
-            </div>
-          </div>
-          <a href="/contact" className="text-[#ff4e11]">CONTACT</a>
-        </nav>
-      </header>
+      <ContactHeader />
 
       <main className="overflow-hidden">
         <section className="relative mx-auto max-w-[1120px] px-8 pb-28 pt-8 md:px-12 md:pt-10" style={{ animation: "fade-up 0.8s 0.1s ease both" }}>

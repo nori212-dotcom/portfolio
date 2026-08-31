@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { BottomBlurVeil, FooterBar, RESUME_URL } from "@/PortfolioPage";
+import { BottomBlurVeil, ContactSection, FooterBar } from "@/PortfolioPage";
+import { ContactHeader } from "@/ContactPage";
 import coverImg from "@/imports/coupang/cover.jpg";
 import wideHanriver from "@/imports/coupang/wide-hanriver.jpg";
 import trackingRider from "@/imports/coupang/tracking-rider.jpg";
@@ -43,32 +44,6 @@ function DisplayHeading({
     >
       {children}
     </h2>
-  );
-}
-
-/* ─── Header ────────────────────────────────────────────────────────────────── */
-function Header() {
-  return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-black/10 bg-white/95 px-8 py-5 backdrop-blur-md md:px-12"
-    >
-      <a
-        href="/"
-        className="text-[26px] text-[#ff4e11]"
-        style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
-      >
-        Seung Woon
-      </a>
-      <nav
-        className="flex items-center gap-6 text-[14px] md:gap-9"
-        style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
-      >
-        <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
-        <a href="/#projects" className="transition-colors hover:text-[#ff4e11]">PROJECT</a>
-        <a href={RESUME_URL} target="_blank" rel="noreferrer" className="hidden transition-colors hover:text-[#ff4e11] sm:inline">RESUME</a>
-        <a href="/contact" className="transition-colors hover:text-[#ff4e11]">CONTACT</a>
-      </nav>
-    </header>
   );
 }
 
@@ -193,9 +168,9 @@ export default function ProjectCoupangEats() {
   return (
     <div className="min-h-screen bg-white text-[#0a0a0a]">
       <BottomBlurVeil />
-      <Header />
+      <ContactHeader />
 
-      <main className="overflow-hidden pt-[72px]">
+      <main className="overflow-hidden">
         {/* ── Hero ─────────────────────────────────────────────── */}
         <section
           className="mx-auto max-w-[1180px] px-8 pt-16 pb-10 md:px-12 md:pt-20"
@@ -607,7 +582,7 @@ export default function ProjectCoupangEats() {
         </section>
 
         {/* ── Closing ─────────────────────────────────────────── */}
-        <section className="mx-auto max-w-[1180px] px-8 py-28 text-center md:px-12">
+        <section className="mx-auto max-w-[1180px] border-t border-black/10 px-8 py-28 text-center md:px-12">
           <p
             className="text-[clamp(24px,3.4vw,44px)] leading-[1.4]"
             style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
@@ -616,35 +591,20 @@ export default function ProjectCoupangEats() {
             <br />
             일상의 모든 즐거움을 <span style={{ color: SKY }}>쿠팡이츠</span>가 함께합니다.
           </p>
-        </section>
-
-        {/* ── Next project ────────────────────────────────────── */}
-        <section className="border-t border-black/10">
           <a
             href="/#projects"
-            className="group mx-auto flex max-w-[1180px] items-center justify-between px-8 py-14 md:px-12"
+            className="group mt-10 inline-flex items-center gap-2 text-[15px] text-black/60 transition-colors hover:text-[#ff4e11]"
+            style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
           >
-            <div>
-              <p
-                className="text-[14px] text-black/45"
-                style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
-              >
-                Back to
-              </p>
-              <p
-                className="text-[clamp(32px,4.5vw,60px)] uppercase leading-none tracking-[-0.02em] transition-colors group-hover:text-[#ff4e11]"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
-              >
-                All Projects
-              </p>
-            </div>
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="transition-transform group-hover:translate-x-1">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            Back to all projects
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="transition-transform group-hover:translate-x-1">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
         </section>
       </main>
 
+      <ContactSection />
       <FooterBar />
     </div>
   );

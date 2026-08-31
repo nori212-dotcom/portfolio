@@ -49,7 +49,7 @@ export default function ContactPage() {
 
       <main className="overflow-hidden">
         <section className="relative mx-auto max-w-[1120px] px-8 pb-28 pt-8 md:px-12 md:pt-10" style={{ animation: "fade-up 0.8s 0.1s ease both" }}>
-          <p className="mb-3 text-[16px] font-medium tracking-[-0.03em]" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>문의하기</p>
+          <p className="mb-3 text-[16px] font-medium tracking-[-0.03em]" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}>Contact</p>
           <h1 className="max-w-[1040px] text-[clamp(52px,8.5vw,132px)] leading-[1.05] tracking-[-0.035em]" style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}>
             프로젝트를<span className="text-[#ff4e11]"> 함께</span>
             <br />

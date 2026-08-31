@@ -1,63 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
 @import 'tailwindcss';
 
-/* ─── Space Grotesk aliases (Figma variable font CDN) ─────────────────────── */
+/* ─── Space Grotesk aliases → Google Fonts (gstatic, latin subset) ────────── */
+/* Variable font; weights 400/500/700 share one file. */
 @font-face {
   font-family: 'Space Grotesk:Regular';
-  src: url('https://static.figma.com/font/SpaceGrotesk_wght__1') format('woff2');
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Space Grotesk:Medium';
-  src: url('https://static.figma.com/font/SpaceGrotesk_wght__1') format('woff2');
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Space Grotesk:Bold';
-  src: url('https://static.figma.com/font/SpaceGrotesk_wght__1') format('woff2');
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* ─── Inter aliases (Figma variable font CDN) ─────────────────────────────── */
+/* ─── Wanted Sans (private, downloaded — single variable file per weight) ──── */
 @font-face {
-  font-family: 'Inter:Regular';
-  src: url('https://static.figma.com/font/Inter_1') format('woff2');
-  font-weight: 400;
+  font-family: 'Wanted Sans:Bold';
+  src: url('/fonts/Wanted_Sans-SemiBold.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Inter:Medium';
-  src: url('https://static.figma.com/font/Inter_1') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter:Semi Bold';
-  src: url('https://static.figma.com/font/Inter_1') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ─── Noto Sans KR fallback alias ─────────────────────────────────────────── */
-@font-face {
-  font-family: 'Noto Sans KR:Regular';
-  src: local('Noto Sans KR'), local('NotoSansKR');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ─── Wanted Sans (private, downloaded) ───────────────────────────────────── */
 @font-face {
   font-family: 'Wanted Sans:SemiBold';
   src: url('/fonts/Wanted_Sans-SemiBold.woff2') format('woff2');

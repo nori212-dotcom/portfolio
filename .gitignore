@@ -9,6 +9,9 @@ vite.config.*.timestamp-*
 *-debug.log*
 logs/
 *.log
+
+# Local working assets (source videos, reference links) — not site source
+/project/
 .claude-replay.*
 .tmp-*
 

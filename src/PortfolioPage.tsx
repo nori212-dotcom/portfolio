@@ -548,7 +548,7 @@ function SkillsSection() {
         <div className="flex flex-col min-w-0" style={{ gap: "10px 32px" }}>
           <p
             className="text-[#0a0a0a] text-[16px]"
-            style={{ fontFamily: "'Inter:Medium', sans-serif" }}
+            style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
           >
             About me
           </p>
@@ -599,7 +599,7 @@ function SkillsSection() {
           <a
             href="#contact"
             className="group inline-flex items-center gap-2 text-[#2e2d2d] text-[16px] relative"
-            style={{ fontFamily: "'Inter:Regular', 'Noto Sans KR:Regular', sans-serif" }}
+            style={{ fontFamily: "'Space Grotesk:Regular', 'Wanted Sans:Regular', sans-serif" }}
           >
             <span className="relative pb-px after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-[#2e2d2d] after:origin-left after:scale-x-100 group-hover:after:scale-x-0 after:transition-transform after:duration-300">
               More about me
@@ -923,7 +923,7 @@ export function FooterBar() {
     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-8 bg-[#0a0a0a] border-t border-white/10 px-16 py-6">
       <p
         className="text-white/60 text-[16px] uppercase tracking-tight"
-        style={{ fontFamily: "'Inter:Semi Bold', sans-serif", fontWeight: 600 }}
+        style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
       >
         <span className="text-white/60">© 2026 </span>
         <span className="text-white">Themepure</span>
@@ -949,7 +949,7 @@ export function FooterBar() {
               }
             }}
             className="text-white uppercase text-[16px] hover:text-[#ff4e11] transition-colors"
-            style={{ fontFamily: "'Inter:Semi Bold', sans-serif", fontWeight: 600, letterSpacing: "-0.15px" }}
+            style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500, letterSpacing: "-0.15px" }}
           >
             {label}
           </a>
@@ -959,7 +959,7 @@ export function FooterBar() {
       <button
         onClick={scrollToTop}
         className="flex justify-self-end items-center gap-2 text-white uppercase text-[16px] hover:text-[#ff4e11] transition-colors"
-        style={{ fontFamily: "'Inter:Semi Bold', sans-serif", fontWeight: 600, letterSpacing: "-0.15px" }}
+        style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500, letterSpacing: "-0.15px" }}
       >
         back to top
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

@@ -69,10 +69,21 @@ function BackToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const updateVisibility = () => setVisible(window.scrollY > 280);
+    const updateVisibility = () => {
+      const scrolledEnough = window.scrollY > 280;
+      // Hide once the footer (which has its own "back to top") is in view.
+      const nearFooter =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 160;
+      setVisible(scrolledEnough && !nearFooter);
+    };
     updateVisibility();
     window.addEventListener("scroll", updateVisibility, { passive: true });
-    return () => window.removeEventListener("scroll", updateVisibility);
+    window.addEventListener("resize", updateVisibility);
+    return () => {
+      window.removeEventListener("scroll", updateVisibility);
+      window.removeEventListener("resize", updateVisibility);
+    };
   }, []);
 
   return (

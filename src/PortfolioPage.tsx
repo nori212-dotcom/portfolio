@@ -163,8 +163,17 @@ const scrollToElementWithOffset = (id: string, offset = 100) => {
   }
 };
 
+const goToMain = () => {
+  const atCleanRoot = window.location.pathname === "/" && !window.location.hash;
+  if (atCleanRoot) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    window.location.href = "/";
+  }
+};
+
 const NAV_ACTIONS: Record<string, () => void> = {
-  HOME: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+  HOME: goToMain,
   PROJECT: () => scrollToElementWithOffset("projects", 100),
   CONTACT: () => scrollToElementWithOffset("contact", 100),
 };
@@ -240,7 +249,7 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
 
       {/* logo — absolutely centered */}
       <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        onClick={goToMain}
         className="absolute left-1/2 -translate-x-1/2 text-[#ff4e11] text-[28px] whitespace-nowrap flex cursor-pointer bg-transparent border-none outline-none pb-1.5"
         style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
       >

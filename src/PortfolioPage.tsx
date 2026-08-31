@@ -705,15 +705,15 @@ function ProjectsSection() {
         </div>
       ))}
 
-      {/* Floating preview image — natural aspect ratio, centered on the cursor */}
+      {/* Floating preview — uniform box, blurred backdrop fills the letterbox */}
       {hovered !== null && (
-        <img
+        <FramedImage
           src={PROJECTS[hovered].img}
           alt={PROJECTS[hovered].title}
           className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl"
           style={{
             width: 320,
-            height: "auto",
+            height: 210,
             left: mousePos.x,
             top: mousePos.y,
             transform: "translate(-50%, -50%)",

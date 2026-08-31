@@ -181,18 +181,9 @@ const NAV_ACTIONS: Record<string, () => void> = {
 };
 
 function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded: boolean }) {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-8 px-10 py-5 transition-all duration-300"
-      style={{ background: scrolled ? "rgba(255,255,255,0.95)" : "white", backdropFilter: "blur(8px)", boxShadow: scrolled ? "0 1px 0 rgba(0,0,0,0.06)" : "none" }}
+      className="relative z-40 flex items-center justify-between gap-8 border-b border-black/10 bg-white px-10 py-5"
     >
       {/* nav-left */}
       <nav className="flex gap-2 items-center shrink-0">
@@ -1089,8 +1080,7 @@ export default function PortfolioPage() {
         style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease" }}
       >
         <Header onContactClick={scrollToContact} loaded={loaded} />
-        {/* Offset for fixed header */}
-        <div className="pt-[72px]">
+        <div>
           {/* Hero + marquee share a wrapper so the blob can straddle the boundary */}
           <div className="relative">
             <Hero loaded={loaded} />

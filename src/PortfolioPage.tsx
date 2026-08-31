@@ -1,17 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import signatureImg from "@/imports/PixoraPortfolio-1/1f54c6870da8a50abff60449876f8108d669f125.png";
 import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a745f887b21.png";
-import gallery1 from "@/imports/PixoraPortfolio-1/9e0c00d1ecde8485050d2737152b3d00059263e4.png";
 import gallery2 from "@/imports/PixoraPortfolio-1/8285befa8eab95ccd6d92d5a33be928de550bb87.png";
 import gallery3 from "@/imports/PixoraPortfolio-1/19b825796c8b29c56a27f3fbc5148b1e9e4a7bf4.png";
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
+import coupangCover from "@/imports/coupang/cover.jpg";
+import coupangGuitar from "@/imports/coupang/mood-guitar.jpg";
+import coupangBlossom from "@/imports/coupang/mood-blossom.jpg";
+import coupangPicnic from "@/imports/coupang/medium-picnic.jpg";
+import coupangFood from "@/imports/coupang/closeup-food.jpg";
+import coupangRider from "@/imports/coupang/tracking-rider.jpg";
+import coupangHanriver from "@/imports/coupang/wide-hanriver.jpg";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
 export const RESUME_URL = "/resume.pdf";
 
 export const PROJECTS = [
-  { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: gallery1, href: "/projects/coupang-eats" },
+  { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: coupangCover, href: "/projects/coupang-eats" },
   { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: gallery2 },
   { title: "SPACE NEEDLE", cat: "UX/UI, 개발", img: gallery3 },
   { title: "FABRIC", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
@@ -701,7 +707,15 @@ function ProjectsSection() {
 }
 
 /* ─── Gallery ────────────────────────────────────────────────────────────────── */
-const GALLERY_IMAGES = [gallery1, gallery2, gallery3, gallery4];
+const GALLERY_IMAGES = [
+  coupangCover,
+  coupangGuitar,
+  coupangPicnic,
+  coupangFood,
+  coupangRider,
+  coupangBlossom,
+  coupangHanriver,
+];
 
 function GalleryRow({ reverse = false }: { reverse?: boolean }) {
   const imgs = [...GALLERY_IMAGES, ...GALLERY_IMAGES, ...GALLERY_IMAGES];

@@ -31,7 +31,7 @@ Node.js / pnpm 버전은 `.mise.toml`에 고정되어 있습니다.
 | `src/PortfolioPage.tsx` | 메인 포트폴리오 페이지 (`ContactSection`, `FooterBar`, `BottomBlurVeil` 등 공용 컴포넌트 export) |
 | `src/ContactPage.tsx` | 문의 페이지 (관심 분야 선택 + 문의 폼) |
 | `src/index.css` | 전역 CSS. Tailwind import, `@font-face`(Wanted Sans), 애니메이션 키프레임 |
-| `src/imports/` | Figma Make에서 생성된 에셋 및 원본 컴포넌트 |
+| `src/imports/` | Figma Make에서 생성된 이미지·SVG 에셋 (`PixoraPortfolio-1/`, `coupang/`) |
 | `public/fonts/` | Wanted Sans woff2 폰트 |
 | `vite.config.ts` | Vite 설정 (React, Tailwind v4, Figma Make 플러그인, `@` → `src` alias) |
 
@@ -41,7 +41,4 @@ Node.js / pnpm 버전은 `.mise.toml`에 고정되어 있습니다.
 
 - `/` — 포트폴리오
 - `/contact` — 문의 페이지
-
-## 에셋
-
-이미지(`*.png`)는 Git LFS로 관리됩니다 (`.gitattributes` 참고).
+- `/projects/coupang-eats` — 프로젝트 상세 페이지

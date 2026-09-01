@@ -12,10 +12,11 @@ export const RESUME_URL = "/resume.pdf";
 
 export const PROJECTS = [
   { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: coupangCover, href: "/projects/coupang-eats" },
-  { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: ikeaCover, href: "/projects/ikea", fit: "cover" },
+  // galleryFit only affects the bottom marquee box (480x360); the hover preview (320x210) always contains.
+  { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: ikeaCover, href: "/projects/ikea", galleryFit: "cover" },
   { title: "SPACE NEEDLE", cat: "UX/UI, 개발", img: gallery3 },
   { title: "FABRIC", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
-] as { title: string; cat: string; img: string; href?: string; fit?: "cover" | "contain" }[];
+] as { title: string; cat: string; img: string; href?: string; galleryFit?: "cover" | "contain" }[];
 
 /* ─── Preloader ─────────────────────────────────────────────────────────────── */
 function Preloader({ onDone }: { onDone: () => void }) {
@@ -716,7 +717,6 @@ function ProjectsSection() {
         <FramedImage
           src={PROJECTS[hovered].img}
           alt={PROJECTS[hovered].title}
-          fit={PROJECTS[hovered].fit}
           className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl"
           style={{
             width: 320,
@@ -733,7 +733,7 @@ function ProjectsSection() {
 
 /* ─── Gallery ────────────────────────────────────────────────────────────────── */
 // One representative image per project.
-const GALLERY_IMAGES = PROJECTS.map((p) => ({ img: p.img, fit: p.fit }));
+const GALLERY_IMAGES = PROJECTS.map((p) => ({ img: p.img, fit: p.galleryFit }));
 
 function GalleryRow({ reverse = false }: { reverse?: boolean }) {
   const imgs = [...GALLERY_IMAGES, ...GALLERY_IMAGES, ...GALLERY_IMAGES];

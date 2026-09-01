@@ -4,7 +4,7 @@ import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a7
 import gallery3 from "@/imports/PixoraPortfolio-1/19b825796c8b29c56a27f3fbc5148b1e9e4a7bf4.png";
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
 import coupangCover from "@/imports/coupang/cover.jpg";
-import ikeaCover from "@/imports/ikea/moodboard.jpg";
+import ikeaCover from "@/imports/ikea/interior.jpg";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";

@@ -48,7 +48,7 @@ const META = [
   { k: "Client", v: "IKEA Korea (컨셉 리디자인)" },
   { k: "Team", v: "Team_Synergos · 5인" },
   { k: "Duration", v: "18일 · 2026.07.21 – 08.13" },
-  { k: "My Role", v: "메인·카테고리 구현 · 헤더 통일 · 디자인 토큰" },
+  { k: "My Role", v: "메인·카테고리 구현·헤더 통일·디자인 토큰" },
 ];
 
 /* ─── The brief ─────────────────────────────────────────────────────────────── */
@@ -205,8 +205,7 @@ export default function ProjectIkea() {
             style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
           >
             목적형 쇼핑을 방해하던 IKEA Korea 온라인몰을, 사용자 여정 분석부터
-            25종 페이지 퍼블리싱까지 5인 팀 &ldquo;Team_Synergos&rdquo;로 다시 설계한
-            ESG 기업 웹사이트 리뉴얼 제안입니다.
+            25종 페이지 퍼블리싱까지 다시 설계한 ESG 웹사이트 리뉴얼 제안입니다.
           </p>
         </section>
 
@@ -222,19 +221,16 @@ export default function ProjectIkea() {
 
         {/* ── Meta row ─────────────────────────────────────────── */}
         <section className="mx-auto max-w-[1180px] px-8 pt-14 md:px-12">
-          <div className="grid gap-y-8 border-y border-black/10 py-9 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-y-8 border-y border-black/10 py-9 sm:grid-cols-2 lg:grid-cols-4">
             {META.map((m) => (
-              <div key={m.k} className={m.k === "My Role" ? "lg:col-span-2" : undefined}>
+              <div key={m.k}>
                 <p
                   className="mb-2 text-[13px] uppercase tracking-[0.1em] text-black/40"
                   style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
                 >
                   {m.k}
                 </p>
-                <p
-                  className={"text-[16px] leading-snug" + (m.k === "My Role" ? " lg:whitespace-nowrap" : "")}
-                  style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
-                >
+                <p className="text-[16px] leading-snug" style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}>
                   {m.v}
                 </p>
               </div>

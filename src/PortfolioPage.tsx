@@ -6,6 +6,7 @@ import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e72
 import coupangCover from "@/imports/coupang/cover.jpg";
 import ikeaCover from "@/imports/ikea/interior.jpg";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
+import { sendContactMessage } from "@/lib/contact";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
 export const RESUME_URL = "/resume.pdf";
@@ -817,12 +818,28 @@ function ToolsSection() {
 /* ─── Contact / Footer ───────────────────────────────────────────────────────── */
 export function ContactSection() {
   const [form, setForm] = useState({ type: "", name: "", email: "", msg: "" });
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setSending(true);
+    setError(false);
+    const ok = await sendContactMessage({
+      name: form.name,
+      email: form.email,
+      message: form.msg,
+      type: form.type,
+    });
+    setSending(false);
+    if (ok) {
+      setSent(true);
+      setForm({ type: "", name: "", email: "", msg: "" });
+      setTimeout(() => setSent(false), 3000);
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -910,14 +927,20 @@ export function ContactSection() {
               style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
             />
           </div>
-          <div className="z-10 -mt-[48px] mb-0 flex h-9 justify-end pr-2">
+          <div className="z-10 -mt-[48px] mb-0 flex h-9 items-center justify-end gap-3 pr-2">
+            {error && (
+              <p className="text-[13px] text-red-400" style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}>
+                전송에 실패했어요. 잠시 후 다시 시도해주세요.
+              </p>
+            )}
             <button
               type="submit"
+              disabled={sending}
               aria-label="Send message"
-              className="after:content-['↗'] flex h-9 w-9 items-center justify-center rounded-full bg-white text-[0px] text-black after:text-[18px] hover:bg-white/80 transition-colors duration-200"
+              className="after:content-['↗'] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[0px] text-black after:text-[18px] hover:bg-white/80 transition-colors duration-200 disabled:opacity-50"
               style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
             >
-              {sent ? "전송 완료 ✓" : "메시지 보내기"}
+              {sending ? "전송 중" : sent ? "전송 완료 ✓" : "메시지 보내기"}
             </button>
           </div>
           <div className="flex gap-5 pt-0">

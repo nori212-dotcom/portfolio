@@ -27,3 +27,6 @@ logs/
 # .figma/make/* is imported by vite.config.ts (site.json) and holds the
 # toolchain scripts, so it must stay tracked. Only the attachments are noise.
 /.figma/attachments/
+
+.vercel
+.env*

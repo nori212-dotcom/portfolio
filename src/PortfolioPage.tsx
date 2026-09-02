@@ -422,14 +422,13 @@ function Hero({ loaded }: { loaded: boolean }) {
           {[["Art Direction", "Web Design"], ["Branding", "Motion Design", "HTML"]].map((row, ri) => (
             <div key={ri} className="flex gap-2">
               {row.map((tag) => (
-                <a
+                <span
                   key={tag}
-                  href="#"
                   className="bg-[#f8f8f8] hover:bg-[#0a0a0a] hover:text-white rounded-[20px] px-3 py-2 text-[#575454] text-[14px] uppercase transition-colors duration-200"
                   style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
                 >
                   {tag}
-                </a>
+                </span>
               ))}
             </div>
           ))}
@@ -869,21 +868,6 @@ export function ContactSection() {
           >
             Soyul8363@gmail.com
           </p>
-          <div className="hidden gap-4 pt-4">
-            {["GitHub", "Resume"].map((s) => (
-              <a
-                key={s}
-                href="#"
-                className="group flex items-center gap-2 text-white text-[16px] border-b border-[#eaeaea]/20 pb-2.5 hover:border-white transition-colors"
-                style={{ fontFamily: "'Space Grotesk:Regular', sans-serif" }}
-              >
-                {s}
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <path d="M1 9L9 1M9 8V1H2" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
-                </svg>
-              </a>
-            ))}
-          </div>
         </div>
 
         {/* Contact form */}

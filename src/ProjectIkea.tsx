@@ -13,6 +13,7 @@ const YELLOW = "#FBD914";
 
 const LIVE_URL = "https://heebon00.github.io/Team_Synergos_esg/";
 const REPO_URL = "https://github.com/heebon00/Team_Synergos_esg";
+const PLAN_PDF_URL = "https://dxwiob5ehvselfuq.public.blob.vercel-storage.com/ikea-project-plan.pdf";
 
 /* ─── shared eyebrow label ──────────────────────────────────────────────────── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -207,6 +208,15 @@ export default function ProjectIkea() {
             목적형 쇼핑을 방해하던 IKEA Korea 온라인몰을, 사용자 여정 분석부터
             25종 페이지 퍼블리싱까지 다시 설계한 ESG 웹사이트 리뉴얼 제안입니다.
           </p>
+          <a
+            href={PLAN_PDF_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] text-white transition-colors hover:opacity-90"
+            style={{ fontFamily: "'Wanted Sans:Medium', sans-serif", background: BLUE }}
+          >
+            기획서 보기 ↗
+          </a>
         </section>
 
         {/* ── Cover image ──────────────────────────────────────── */}

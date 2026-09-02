@@ -17,6 +17,7 @@ const STORYBOARD_URL =
 const VIDEO_ORIGINAL_URL =
   "https://dxwiob5ehvselfuq.public.blob.vercel-storage.com/coupang-eats-final-RucrjZRKFmfrXad8qCCWE9bOadYYtR.mp4";
 const WISEAPP_URL = "https://www.wiseapp.co.kr/insight/detail/869";
+const PLAN_PDF_URL = "/projects/coupang-eats-plan.pdf";
 
 /* ─── shared eyebrow label ──────────────────────────────────────────────────── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -200,6 +201,15 @@ export default function ProjectCoupangEats() {
             브랜드 인지도 강화와 시장 점유율 확대를 위한 쿠팡이츠 광고 영상 비주얼
             디자인 기획안. 한강의 봄을 배경으로 청춘의 연결감을 담은 감성 캠페인입니다.
           </p>
+          <a
+            href={PLAN_PDF_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-6 py-3 text-[15px] text-white transition-colors hover:bg-black/80"
+            style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+          >
+            기획서 보기 ↗
+          </a>
         </section>
 
         {/* ── Cover image ──────────────────────────────────────── */}

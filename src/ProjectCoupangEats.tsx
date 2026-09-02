@@ -207,8 +207,12 @@ export default function ProjectCoupangEats() {
           className="mx-auto max-w-[1400px] px-4 md:px-8"
           style={mounted ? { animation: "fade-up 0.9s 0.1s ease both" } : { opacity: 0 }}
         >
-          <div className="overflow-hidden rounded-[20px] bg-[#f5f5f5]">
-            <img src={coverImg} alt="쿠팡이츠 캠페인 키 비주얼 — 노을 지는 한강" className="w-full object-cover" />
+          <div className="aspect-[1376/768] overflow-hidden rounded-[20px] bg-[#f5f5f5]">
+            <img
+              src={coverImg}
+              alt="쿠팡이츠 캠페인 키 비주얼 — 노을 지는 한강"
+              className="h-full w-full object-cover"
+            />
           </div>
         </section>
 

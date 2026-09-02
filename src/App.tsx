@@ -7,10 +7,18 @@ import ProjectIkea from "@/ProjectIkea";
 function WheelScrollSmoother() {
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) {
-      // No custom smoother here — still honor the shared "scroll to top" request.
+      // No custom smoother here — still honor the shared scroll requests.
       const onScrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+      const onScrollTo = (event: Event) => {
+        const top = (event as CustomEvent<{ top: number }>).detail?.top ?? 0;
+        window.scrollTo({ top, behavior: "smooth" });
+      };
       window.addEventListener("app:scroll-to-top", onScrollToTop);
-      return () => window.removeEventListener("app:scroll-to-top", onScrollToTop);
+      window.addEventListener("app:scroll-to", onScrollTo);
+      return () => {
+        window.removeEventListener("app:scroll-to-top", onScrollToTop);
+        window.removeEventListener("app:scroll-to", onScrollTo);
+      };
     }
 
     let targetY = window.scrollY;
@@ -47,26 +55,36 @@ function WheelScrollSmoother() {
       if (!frameId) frameId = requestAnimationFrame(animate);
     };
 
-    const scrollToTop = () => {
-      // Hand off to the browser's native smooth scroll — it actually reaches 0
-      // quickly instead of the wheel smoother's slow asymptotic glide.
+    // Hand off to the browser's native smooth scroll for a given target — it
+    // reaches the destination reliably instead of the wheel smoother's slow
+    // asymptotic glide. Cancels any in-flight wheel-driven animation first so
+    // it can't keep firing afterward and drag the page back to its old target.
+    const scrollToY = (top: number) => {
       if (frameId) {
         cancelAnimationFrame(frameId);
         frameId = 0;
       }
       isSmoothing = false;
-      targetY = 0;
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      targetY = top;
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+
+    const scrollToTop = () => scrollToY(0);
+    const onScrollTo = (event: Event) => {
+      const top = (event as CustomEvent<{ top: number }>).detail?.top ?? 0;
+      scrollToY(top);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("scroll", syncTarget, { passive: true });
     window.addEventListener("app:scroll-to-top", scrollToTop);
+    window.addEventListener("app:scroll-to", onScrollTo);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("scroll", syncTarget);
       window.removeEventListener("app:scroll-to-top", scrollToTop);
+      window.removeEventListener("app:scroll-to", onScrollTo);
       if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);

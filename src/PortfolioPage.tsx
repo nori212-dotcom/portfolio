@@ -160,7 +160,13 @@ const scrollToElementWithOffset = (id: string, offset = 100) => {
   if (el) {
     const elementPosition = el.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.scrollY - offset;
-    window.scrollTo({ top: Math.max(0, offsetPosition), behavior: "smooth" });
+    // Routed through the shared "app:scroll-to" event (handled in App.tsx) so
+    // it cancels any in-flight wheel-driven scroll first — calling
+    // window.scrollTo directly here would let that stale animation keep
+    // running and drag the page back, making a repeat click look like a no-op.
+    window.dispatchEvent(
+      new CustomEvent("app:scroll-to", { detail: { top: Math.max(0, offsetPosition) } })
+    );
   }
 };
 

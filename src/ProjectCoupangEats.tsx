@@ -14,8 +14,8 @@ const PINK = "#F6B6C8";
 
 const STORYBOARD_URL =
   "https://www.figma.com/design/uB9PPkz7txhMscNimLpIYj/%EC%98%81%EC%83%81%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C-%EC%BF%A0%ED%8C%A1%EC%9D%B4%EC%B8%A0-%EC%98%81%EC%83%81%EC%83%9D%EC%84%B1?node-id=2533-274";
-const VIDEO_DRIVE_URL =
-  "https://drive.google.com/file/d/1l_HVGNuzMfBw7SBQg4EAjq7_M5a7WNM_/view";
+const VIDEO_ORIGINAL_URL =
+  "https://dxwiob5ehvselfuq.public.blob.vercel-storage.com/coupang-eats-final-RucrjZRKFmfrXad8qCCWE9bOadYYtR.mp4";
 const WISEAPP_URL = "https://www.wiseapp.co.kr/insight/detail/869";
 
 /* ─── shared eyebrow label ──────────────────────────────────────────────────── */
@@ -565,7 +565,7 @@ export default function ProjectCoupangEats() {
           </div>
           <div className="mx-auto mt-8 flex max-w-[1180px] flex-wrap gap-3 px-4 md:px-4">
             <a
-              href={VIDEO_DRIVE_URL}
+              href={VIDEO_ORIGINAL_URL}
               target="_blank"
               rel="noreferrer"
               className="rounded-full bg-[#0a0a0a] px-6 py-3 text-[15px] text-white transition-colors hover:bg-black/80"

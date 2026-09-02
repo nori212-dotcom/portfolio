@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BottomBlurVeil, ContactSection, FooterBar } from "@/PortfolioPage";
 import { ContactHeader } from "@/ContactPage";
-import interior from "@/imports/ikea/interior.jpg";
+import coverPhoto from "@/imports/ikea/cover.jpg";
 import wireToHifi from "@/imports/ikea/wire-to-hifi.jpg";
 import publishedHome from "@/imports/ikea/published-home.jpg";
 import personaLee from "@/imports/ikea/persona-lee.jpg";
@@ -216,8 +216,8 @@ export default function ProjectIkea() {
         >
           <div className="aspect-[1376/768] overflow-hidden rounded-[20px] bg-[#f5f5f5]">
             <img
-              src={interior}
-              alt="IKEA 리디자인 무드 — 블루 톤의 밝은 거실"
+              src={coverPhoto}
+              alt="IKEA 스타일의 밝은 스칸디나비안 거실"
               className="h-full w-full object-cover"
             />
           </div>

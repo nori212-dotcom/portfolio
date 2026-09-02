@@ -15,36 +15,83 @@ function ArrowIcon() {
 
 export function ContactHeader() {
   const onContactPage = window.location.pathname.replace(/\/+$/, "") === "/contact";
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <header className="flex items-center justify-between border-b border-black/10 bg-white px-8 py-6 md:px-12" style={{ animation: "fade-in 0.7s ease both" }}>
-      <a href="/" className="text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
-        Seung Woon
-      </a>
-      <nav className="flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
-        <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
-        <div className="group relative">
-          <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PAGES <ArrowIcon /></button>
-          <div className="invisible absolute right-0 top-full z-20 mt-3 w-32 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">GitHub</a>
-            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">Resume</a>
+    <header className="border-b border-black/10 bg-white" style={{ animation: "fade-in 0.7s ease both" }}>
+      <div className="flex items-center justify-between px-6 py-4 md:px-12 md:py-6">
+        <a href="/" className="text-[20px] md:text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
+          Seung Woon
+        </a>
+        <nav className="hidden lg:flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
+          <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
+          <div className="group relative">
+            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PAGES <ArrowIcon /></button>
+            <div className="invisible absolute right-0 top-full z-20 mt-3 w-32 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">GitHub</a>
+              <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">Resume</a>
+            </div>
           </div>
-        </div>
-        <div className="group relative">
-          <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
-          <div className="invisible absolute right-0 top-full z-20 mt-3 w-44 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="group relative">
+            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
+            <div className="invisible absolute right-0 top-full z-20 mt-3 w-44 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+              {PROJECTS.map((p, idx) => (
+                <a
+                  key={p.title}
+                  href={p.href ?? `/#project-${idx}`}
+                  className="block whitespace-nowrap rounded px-3 py-2 hover:bg-black/5"
+                >
+                  {p.title}
+                </a>
+              ))}
+            </div>
+          </div>
+          <a href="/contact" className={onContactPage ? "text-[#ff4e11]" : "hover:text-[#ff4e11]"}>CONTACT</a>
+        </nav>
+
+        {/* mobile menu toggle */}
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+          aria-expanded={menuOpen}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f5f5f5] text-[#0a0a0a] lg:hidden"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            {menuOpen ? (
+              <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            ) : (
+              <path d="M1 4H15M1 8H15M1 12H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="border-t border-black/10 px-6 py-4 lg:hidden">
+          <nav className="flex flex-col gap-1 text-[15px] font-bold" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
+            <a href="/" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-3 hover:bg-black/5">HOME</a>
             {PROJECTS.map((p, idx) => (
               <a
                 key={p.title}
                 href={p.href ?? `/#project-${idx}`}
-                className="block whitespace-nowrap rounded px-3 py-2 hover:bg-black/5"
+                onClick={() => setMenuOpen(false)}
+                className="rounded-lg px-3 py-3 hover:bg-black/5"
               >
                 {p.title}
               </a>
             ))}
-          </div>
+            <div className="my-2 border-t border-black/10" />
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="rounded-lg px-3 py-3 hover:bg-black/5">GitHub</a>
+            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="rounded-lg px-3 py-3 hover:bg-black/5">Resume</a>
+            <a
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              className={"rounded-lg px-3 py-3 hover:bg-black/5 " + (onContactPage ? "text-[#ff4e11]" : "")}
+            >
+              CONTACT
+            </a>
+          </nav>
         </div>
-        <a href="/contact" className={onContactPage ? "text-[#ff4e11]" : "hover:text-[#ff4e11]"}>CONTACT</a>
-      </nav>
+      )}
     </header>
   );
 }
@@ -89,7 +136,7 @@ export default function ContactPage() {
       <main className="overflow-hidden">
         <section className="relative mx-auto max-w-[1120px] px-8 pb-28 pt-8 md:px-12 md:pt-10" style={{ animation: "fade-up 0.8s 0.1s ease both" }}>
           <p className="mb-3 text-[16px] font-medium tracking-[-0.03em]" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}>Contact</p>
-          <h1 className="max-w-[1040px] text-[clamp(52px,8.5vw,132px)] leading-[1.05] tracking-[-0.035em]" style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}>
+          <h1 className="max-w-[1040px] text-[clamp(36px,8.5vw,132px)] leading-[1.05] tracking-[-0.035em]" style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}>
             프로젝트를<span className="text-[#ff4e11]"> 함께</span>
             <br />
             <span className="inline-flex items-baseline whitespace-nowrap">
@@ -102,7 +149,7 @@ export default function ContactPage() {
               시작해볼까요?
             </span>
           </h1>
-          <p className="mt-7 max-w-[620px] whitespace-nowrap text-[20px] leading-[1.55] tracking-[-0.03em] text-black/85 md:ml-[46%] md:mt-7">
+          <p className="mt-7 max-w-[620px] whitespace-normal md:whitespace-nowrap text-[15px] md:text-[20px] leading-[1.55] tracking-[-0.03em] text-black/85 md:ml-[46%] md:mt-7">
             문의 양식을 작성해 주시면 최대한 빠르게 답변드리겠습니다.
           </p>
         </section>

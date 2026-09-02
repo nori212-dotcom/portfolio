@@ -98,8 +98,8 @@ function Marquee({
             style={{
               fontFamily: "'Barlow Condensed', sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(120px,14vw,200px)",
-              lineHeight: "220px",
+              fontSize: "clamp(64px,14vw,200px)",
+              lineHeight: 1.1,
               letterSpacing: "-0.01em",
               textTransform: "uppercase",
             }}
@@ -189,16 +189,21 @@ const NAV_ACTIONS: Record<string, () => void> = {
 };
 
 function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const runNavAction = (label: string) => {
+    (label === "CONTACT" ? onContactClick : NAV_ACTIONS[label])();
+    setMenuOpen(false);
+  };
+
   return (
-    <header
-      className="relative z-40 flex items-center justify-between gap-8 border-b border-black/10 bg-white px-10 py-5"
-    >
+    <header className="relative z-40 border-b border-black/10 bg-white">
+    <div className="relative flex items-center justify-between gap-4 px-6 py-4 md:px-10 md:py-5">
       {/* nav-left */}
-      <nav className="flex gap-2 items-center shrink-0">
+      <nav className="hidden lg:flex gap-2 items-center shrink-0">
         {NAV.map((label) => (
           <div key={label} className="relative group py-2">
             <button
-              onClick={label === "CONTACT" ? onContactClick : NAV_ACTIONS[label]}
+              onClick={() => runNavAction(label)}
               className="bg-[#f5f5f5] hover:bg-[#0a0a0a] hover:text-white rounded-full px-4 py-1 text-sm transition-colors duration-200 cursor-pointer"
               style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
             >
@@ -251,7 +256,7 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
       {/* logo — absolutely centered */}
       <button
         onClick={goToMain}
-        className="absolute left-1/2 -translate-x-1/2 text-[#ff4e11] text-[28px] whitespace-nowrap flex cursor-pointer bg-transparent border-none outline-none pb-1.5"
+        className="text-[22px] md:text-[28px] lg:absolute lg:left-1/2 lg:-translate-x-1/2 text-[#ff4e11] whitespace-nowrap flex cursor-pointer bg-transparent border-none outline-none pb-1.5"
         style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
       >
         {"Seung Woon".split("").map((ch, i) => (
@@ -274,21 +279,68 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
       </button>
 
       {/* nav-right */}
-      <div className="flex items-center gap-6 justify-end shrink-0">
+      <div className="hidden lg:flex items-center gap-6 justify-end shrink-0">
         <span
-          className="text-[#262626] text-[16px] hidden lg:block"
+          className="text-[#262626] text-[16px]"
           style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
         >
           Soyul8363@GMAIL.COM
         </span>
-        <button
-          onClick={onContactClick}
-          className="hidden"
-          style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
-        >
-          연락하기
-        </button>
       </div>
+
+      {/* mobile menu toggle */}
+      <button
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+        aria-expanded={menuOpen}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f5f5f5] text-[#0a0a0a] lg:hidden"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          {menuOpen ? (
+            <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          ) : (
+            <path d="M1 4H15M1 8H15M1 12H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          )}
+        </svg>
+      </button>
+    </div>
+
+      {/* mobile menu panel */}
+      {menuOpen && (
+        <div className="border-t border-black/10 bg-white px-6 py-4 lg:hidden">
+          <nav className="flex flex-col gap-1">
+            {NAV.map((label) => (
+              <button
+                key={label}
+                onClick={() => runNavAction(label)}
+                className="rounded-lg px-3 py-3 text-left text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+                style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
+              >
+                {label}
+              </button>
+            ))}
+            <div className="my-2 border-t border-black/10" />
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-3 text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+            >
+              GitHub
+            </a>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-3 text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+            >
+              Resume
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -300,12 +352,11 @@ function Hero({ loaded }: { loaded: boolean }) {
   const introLines = ["안녕하세요.", "아이디어를 코드로 구현하는", "개발자 이승운입니다."];
 
   return (
-    <section id="top" className="relative bg-white" style={{ height: "660px" }}>
+    <section id="top" className="relative bg-white h-auto lg:h-[660px]">
       {/* Portrait — image clipped to 700 px, gradient extends to section bottom */}
       <div
-        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+        className="relative mx-auto w-[240px] h-[207px] mt-6 lg:mt-0 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-[50px] lg:w-[708px] lg:h-[610px] pointer-events-none"
         style={{
-          top: 50, width: 708, height: 610,
           ...(loaded ? {
             animationName: "fade-in",
             animationDuration: "1s",
@@ -315,15 +366,15 @@ function Hero({ loaded }: { loaded: boolean }) {
           } : { opacity: 0 }),
         }}
       >
-        {/* Image clipped so it never bleeds below the 700 px frame */}
-        <div className="absolute inset-x-0 top-0 overflow-hidden" style={{ height: 560 }}>
+        {/* Image clipped so it never bleeds below the frame */}
+        <div className="absolute inset-x-0 top-0 h-[190px] lg:h-[560px] overflow-hidden">
           <img
             src={heroImg}
             alt="이승운 포트레이트"
             className="absolute w-full h-full object-cover object-top"
           />
         </div>
-        {/* Gradient covers full 770 px height — white at bottom, no hard line */}
+        {/* Gradient covers full frame height — white at bottom, no hard line */}
         <div
           className="absolute inset-0"
           style={{
@@ -334,12 +385,12 @@ function Hero({ loaded }: { loaded: boolean }) {
       </div>
 
       {/* Content row */}
-      <div className="relative z-10 flex items-stretch justify-between px-20 pt-10 pb-3 h-full">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-6 lg:gap-0 px-6 md:px-12 lg:px-20 pt-4 lg:pt-10 pb-8 lg:pb-3 h-auto lg:h-full">
         {/* Left: intro + signature at eye level, socials at bottom */}
-        <div className="relative flex flex-col w-[540px] shrink-0 self-stretch">
+        <div className="relative flex flex-col w-full lg:w-[540px] shrink-0 lg:self-stretch">
           {/* Eye-level content */}
           <div
-            className="absolute top-[35%]"
+            className="relative lg:absolute lg:top-[35%]"
             style={loaded ? {
               animationName: "fade-up",
               animationDuration: "0.7s",
@@ -359,7 +410,7 @@ function Hero({ loaded }: { loaded: boolean }) {
               개발자 이승운입니다.
             </p>
             <p
-              className="text-[#0a0a0a] text-[36px] leading-[1.25]"
+              className="text-[#0a0a0a] text-[26px] md:text-[32px] lg:text-[36px] leading-[1.25]"
               style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
             >
               {introLines.map((line, lineIndex) => (
@@ -382,7 +433,7 @@ function Hero({ loaded }: { loaded: boolean }) {
                 </span>
               ))}
             </p>
-            <img src={signatureImg} alt="Seung Lee 서명" className="w-[200px] object-contain object-left -ml-2 -mt-5" />
+            <img src={signatureImg} alt="Seung Lee 서명" className="w-[150px] lg:w-[200px] object-contain object-left -ml-2 -mt-5" />
           </div>
           {/* Socials pinned to bottom */}
           <div
@@ -411,7 +462,7 @@ function Hero({ loaded }: { loaded: boolean }) {
 
         {/* Right: skill tags — 2 rows, aligned to bottom */}
         <div
-          className="flex flex-col items-end gap-2 shrink-0 justify-end pb-0"
+          className="flex flex-col items-start lg:items-end gap-2 shrink-0 justify-start lg:justify-end pb-0"
           style={loaded ? {
             animationName: "fade-up",
             animationDuration: "0.7s",
@@ -550,9 +601,9 @@ function SkillsCycler() {
 /* ─── About / Skills section ────────────────────────────────────────────────── */
 function SkillsSection() {
   return (
-    <section id="about" className="bg-[#f9f9f9] w-full scroll-mt-[100px] px-[clamp(40px,11vw,220px)] py-[110px]">
+    <section id="about" className="bg-[#f9f9f9] w-full scroll-mt-[100px] px-6 md:px-[clamp(40px,11vw,220px)] py-16 lg:py-[110px]">
       {/* Grid: left col = flex-1, right col = 496px — both rows share same columns */}
-      <div className="grid gap-x-8" style={{ gridTemplateColumns: "1fr 496px", rowGap: "120px" }}>
+      <div className="grid gap-x-8 gap-y-10 lg:gap-y-[120px] grid-cols-1 lg:grid-cols-[1fr_496px]">
         {/* [Row 1, Col 1] Intro */}
         <div className="flex flex-col min-w-0" style={{ gap: "10px 32px" }}>
           <p
@@ -569,25 +620,25 @@ function SkillsSection() {
           </h2>
         </div>
 
-        {/* [Row 1, Col 2] Skills cycler — marginTop aligns active word with h2 */}
-        <div className="relative overflow-hidden" style={{ marginTop: "-70px" }}>
+        {/* [Row 1, Col 2] Skills cycler — marginTop aligns active word with h2 (desktop only) */}
+        <div className="relative overflow-hidden lg:-mt-[70px]">
           <SkillsCycler />
         </div>
 
         {/* [Row 2, Col 1] Orange card */}
         <div
-          className="relative rounded-[16px] overflow-hidden flex items-start self-start"
-          style={{ width: 438, height: 259, background: "linear-gradient(to bottom, #f57838, #e5541a)" }}
+          className="relative w-full max-w-[438px] aspect-[438/259] rounded-[16px] overflow-hidden flex items-start self-start"
+          style={{ background: "linear-gradient(to bottom, #f57838, #e5541a)" }}
         >
           <div
-            className="absolute text-[#0a0a0a] text-[36px] leading-tight"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, textTransform: "uppercase", left: 47, top: 61 }}
+            className="absolute text-[#0a0a0a] text-[22px] sm:text-[28px] md:text-[36px] leading-tight left-[10.7%] top-[23.6%]"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, textTransform: "uppercase" }}
           >
             <p>EAT _</p>
             <p>DREAM</p>
             <p>DESIGN</p>
           </div>
-          <div className="absolute overflow-hidden" style={{ left: 177, top: 54, width: 248, height: 252 }}>
+          <div className="absolute overflow-hidden left-[40.4%] top-[20.8%] w-[56.6%] h-[97.3%]">
             <img src={heroImg} alt="" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-[rgba(243,116,53,0.11)]" />
           </div>
@@ -596,7 +647,7 @@ function SkillsSection() {
         {/* [Row 2, Col 2] Bio text */}
         <div className="self-start">
           <p
-            className="text-[#0a0a0a] text-[26px] leading-[1.6] mb-10"
+            className="text-[#0a0a0a] text-[18px] md:text-[22px] lg:text-[26px] leading-[1.6] mb-10"
             style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
           >
             저는 영상 편집을 통해 쌓아온 시각적 감각을 바탕으로
@@ -673,7 +724,7 @@ function ProjectsSection() {
     <section
       id="projects"
       ref={ref}
-      className="bg-white w-full px-20 py-0 relative overflow-x-clip scroll-mt-[100px]"
+      className="bg-white w-full px-6 md:px-12 lg:px-20 py-0 relative overflow-x-clip scroll-mt-[100px]"
       onMouseMove={handleMouseMove}
     >
       {PROJECTS.map((p, i) => (
@@ -686,21 +737,21 @@ function ProjectsSection() {
         >
           {(() => {
             const Row = (
-              <div className="flex items-center justify-between py-10">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6 lg:py-10">
                 <h3
                   className="text-[#0a0a0a] transition-colors duration-200 group-hover:text-[#ff4e11]"
                   style={{
                     fontFamily: "'Barlow Condensed', sans-serif",
                     fontWeight: 800,
                     fontSize: "clamp(36px,4.5vw,72px)",
-                    lineHeight: "92px",
+                    lineHeight: "clamp(44px,7vw,92px)",
                     textTransform: "uppercase",
                   }}
                 >
                   {p.title}
                 </h3>
                 <p
-                  className="text-[#666] text-[16px] text-right whitespace-nowrap ml-8"
+                  className="text-[#666] text-[16px] text-left lg:text-right whitespace-nowrap lg:ml-8"
                   style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif", fontStyle: "italic" }}
                 >
                   {p.cat}
@@ -784,10 +835,10 @@ const TOOLS = [
 
 function ToolsSection() {
   return (
-    <section className="bg-white flex gap-20 px-20 pt-[120px] pb-[180px]">
-      <div className="shrink-0 w-[450px]">
+    <section className="bg-white flex flex-col lg:flex-row gap-8 lg:gap-20 px-6 md:px-12 lg:px-20 pt-16 lg:pt-[120px] pb-16 lg:pb-[180px]">
+      <div className="shrink-0 w-full lg:w-[450px]">
         <p
-          className="text-[#0a0a0a] text-[48px] font-bold leading-tight"
+          className="text-[#0a0a0a] text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-tight"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, textTransform: "uppercase" }}
         >
           SKILLS &amp;<br />TOOLS
@@ -795,7 +846,7 @@ function ToolsSection() {
       </div>
       <div className="flex-1 min-w-0">
         {TOOLS.map((t) => (
-          <div key={t.skill} className="border-b border-[#eaeaea] flex items-center justify-between py-6">
+          <div key={t.skill} className="border-b border-[#eaeaea] flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6">
             <p
               className="text-[#1a1a1a] text-[16px]"
               style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
@@ -857,8 +908,8 @@ export function ContactSection() {
               style={{
                 fontFamily: "'Barlow Condensed', sans-serif",
                 fontWeight: 800,
-                fontSize: "clamp(120px,14vw,200px)",
-                lineHeight: "220px",
+                fontSize: "clamp(64px,14vw,200px)",
+                lineHeight: 1.1,
                 letterSpacing: "-0.01em",
                 textTransform: "uppercase",
               }}
@@ -870,7 +921,7 @@ export function ContactSection() {
       </div>
 
       {/* Body */}
-      <div className="ml-auto mr-[12vw] flex w-full max-w-[880px] flex-col gap-7 px-6 pt-10">
+      <div className="ml-auto lg:mr-[12vw] flex w-full max-w-[880px] flex-col gap-7 px-6 pt-10">
         {/* Contact info */}
         <div className="flex w-full flex-col gap-2">
           <p
@@ -980,9 +1031,9 @@ export function FooterBar() {
   ];
 
   return (
-    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-8 bg-[#0a0a0a] border-t border-white/10 px-16 py-6">
+    <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] items-center gap-4 lg:gap-8 bg-[#0a0a0a] border-t border-white/10 px-6 md:px-10 lg:px-16 py-6 text-center lg:text-left">
       <p
-        className="text-white/60 text-[16px] uppercase tracking-tight"
+        className="text-white/60 text-[13px] md:text-[16px] uppercase tracking-tight order-3 lg:order-none"
         style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
       >
         <span className="text-white/60">© 2026 </span>
@@ -990,7 +1041,7 @@ export function FooterBar() {
         <span className="text-white/60">. All Right Reserved</span>
       </p>
 
-      <nav className="flex items-center justify-self-center gap-10">
+      <nav className="flex flex-wrap items-center justify-center lg:justify-self-center gap-4 lg:gap-10">
         {links.map(({ label, target, href }) => (
           <a
             key={target}
@@ -1018,7 +1069,7 @@ export function FooterBar() {
 
       <button
         onClick={scrollToTop}
-        className="flex justify-self-end items-center gap-2 text-white uppercase text-[16px] hover:text-[#ff4e11] transition-colors"
+        className="flex items-center gap-2 lg:justify-self-end text-white uppercase text-[16px] hover:text-[#ff4e11] transition-colors"
         style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500, letterSpacing: "-0.15px" }}
       >
         back to top
@@ -1141,7 +1192,7 @@ export default function PortfolioPage() {
                 blob is 190 px tall → bottom extends 160 px into the marquee strip
             */}
             <div
-              className="absolute z-20 pointer-events-none"
+              className="absolute z-20 hidden lg:block pointer-events-none"
               style={{ top: 610, right: "clamp(200px, 28vw, 440px)" }}
             >
               <div className="pointer-events-auto">

@@ -151,7 +151,7 @@ const HARNESS = [
   },
 ];
 
-const STACK = ["Tailwind CSS v4", "GSAP 3.15", "Swiper 12", "Vanilla JS", "빌드 도구 없음"];
+const STACK = ["Tailwind CSS v4", "GSAP 3.15", "Swiper 12", "Vanilla JS"];
 
 /* ─── Results ──────────────────────────────────────────────────────────────── */
 const RESULTS = [
@@ -222,16 +222,19 @@ export default function ProjectIkea() {
 
         {/* ── Meta row ─────────────────────────────────────────── */}
         <section className="mx-auto max-w-[1180px] px-8 pt-14 md:px-12">
-          <div className="grid gap-y-8 border-y border-black/10 py-9 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-y-8 border-y border-black/10 py-9 sm:grid-cols-2 lg:grid-cols-5">
             {META.map((m) => (
-              <div key={m.k}>
+              <div key={m.k} className={m.k === "My Role" ? "lg:col-span-2" : undefined}>
                 <p
                   className="mb-2 text-[13px] uppercase tracking-[0.1em] text-black/40"
                   style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
                 >
                   {m.k}
                 </p>
-                <p className="text-[16px] leading-snug" style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}>
+                <p
+                  className={"text-[16px] leading-snug" + (m.k === "My Role" ? " lg:whitespace-nowrap" : "")}
+                  style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
+                >
                   {m.v}
                 </p>
               </div>

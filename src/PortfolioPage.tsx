@@ -1037,7 +1037,7 @@ export function FooterBar() {
         style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
       >
         <span className="text-white/60">© 2026 </span>
-        <span className="text-white">Themepure</span>
+        <span className="text-white">Seung Woon</span>
         <span className="text-white/60">. All Right Reserved</span>
       </p>
 

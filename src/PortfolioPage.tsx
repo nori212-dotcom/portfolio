@@ -764,7 +764,7 @@ function ProjectRow({
 }: {
   p: (typeof PROJECTS)[number];
   index: number;
-  onMouseEnter: () => void;
+  onMouseEnter: (e: React.MouseEvent) => void;
   onMouseLeave: () => void;
 }) {
   const [ref, visible] = useRevealed<HTMLDivElement>();
@@ -811,7 +811,7 @@ function ProjectsSection() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const updateMousePos = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -822,14 +822,17 @@ function ProjectsSection() {
       id="projects"
       ref={ref}
       className="bg-white w-full px-6 md:px-12 lg:px-20 py-0 relative overflow-x-clip scroll-mt-[100px]"
-      onMouseMove={handleMouseMove}
+      onMouseMove={updateMousePos}
     >
       {PROJECTS.map((p, i) => (
         <ProjectRow
           key={p.title}
           p={p}
           index={i}
-          onMouseEnter={() => setHovered(i)}
+          onMouseEnter={(e) => {
+            updateMousePos(e);
+            setHovered(i);
+          }}
           onMouseLeave={() => setHovered(null)}
         />
       ))}

@@ -19,6 +19,47 @@ export const PROJECTS = [
   { title: "FABRIC", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
 ] as { title: string; cat: string; img: string; href?: string; galleryFit?: "cover" | "contain" }[];
 
+/* ─── Scroll reveal ──────────────────────────────────────────────────────────── */
+// Fires once when the element first enters the viewport, then disconnects —
+// sections stay visible on scroll-up instead of re-animating every pass.
+function useRevealed<T extends HTMLElement>(threshold = 0.2) {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, visible] as const;
+}
+
+const revealStyle = (visible: boolean, delay = 0): React.CSSProperties =>
+  visible
+    ? {
+        animationName: "fade-up",
+        animationDuration: "0.7s",
+        animationTimingFunction: "cubic-bezier(0.22,1,0.36,1)",
+        animationFillMode: "both",
+        animationDelay: `${delay}ms`,
+      }
+    : { opacity: 0 };
+
 /* ─── Preloader ─────────────────────────────────────────────────────────────── */
 function Preloader({ onDone }: { onDone: () => void }) {
   const [pct, setPct] = useState(0);
@@ -600,12 +641,17 @@ function SkillsCycler() {
 
 /* ─── About / Skills section ────────────────────────────────────────────────── */
 function SkillsSection() {
+  const [introRef, introVisible] = useRevealed<HTMLDivElement>();
+  const [cyclerRef, cyclerVisible] = useRevealed<HTMLDivElement>();
+  const [cardRef, cardVisible] = useRevealed<HTMLDivElement>();
+  const [bioRef, bioVisible] = useRevealed<HTMLDivElement>();
+
   return (
     <section id="about" className="bg-[#f9f9f9] w-full scroll-mt-[100px] px-6 md:px-[clamp(40px,11vw,220px)] py-16 lg:py-[110px]">
       {/* Grid: left col = flex-1, right col = 496px — both rows share same columns */}
       <div className="grid gap-x-8 gap-y-10 lg:gap-y-[120px] grid-cols-1 lg:grid-cols-[1fr_496px]">
         {/* [Row 1, Col 1] Intro */}
-        <div className="flex flex-col min-w-0" style={{ gap: "10px 32px" }}>
+        <div ref={introRef} className="flex flex-col min-w-0" style={{ gap: "10px 32px", ...revealStyle(introVisible) }}>
           <p
             className="text-[#0a0a0a] text-[16px]"
             style={{ fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 }}
@@ -621,14 +667,15 @@ function SkillsSection() {
         </div>
 
         {/* [Row 1, Col 2] Skills cycler — marginTop aligns active word with h2 (desktop only) */}
-        <div className="relative overflow-hidden lg:-mt-[70px]">
+        <div ref={cyclerRef} className="relative overflow-hidden lg:-mt-[70px]" style={revealStyle(cyclerVisible, 120)}>
           <SkillsCycler />
         </div>
 
         {/* [Row 2, Col 1] Orange card */}
         <div
+          ref={cardRef}
           className="relative w-full max-w-[438px] aspect-[438/259] rounded-[16px] overflow-hidden flex items-start self-start"
-          style={{ background: "linear-gradient(to bottom, #f57838, #e5541a)" }}
+          style={{ background: "linear-gradient(to bottom, #f57838, #e5541a)", ...revealStyle(cardVisible, 80) }}
         >
           <div
             className="absolute text-[#0a0a0a] text-[22px] sm:text-[28px] md:text-[36px] leading-tight left-[10.7%] top-[23.6%]"
@@ -645,7 +692,7 @@ function SkillsSection() {
         </div>
 
         {/* [Row 2, Col 2] Bio text */}
-        <div className="self-start">
+        <div ref={bioRef} className="self-start" style={revealStyle(bioVisible, 160)}>
           <p
             className="text-[#0a0a0a] text-[18px] md:text-[22px] lg:text-[26px] leading-[1.6] mb-10"
             style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
@@ -709,6 +756,56 @@ function FramedImage({
 }
 
 /* ─── Projects ───────────────────────────────────────────────────────────────── */
+function ProjectRow({
+  p,
+  index,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  p: (typeof PROJECTS)[number];
+  index: number;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}) {
+  const [ref, visible] = useRevealed<HTMLDivElement>();
+
+  const Row = (
+    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6 lg:py-10">
+      <h3
+        className="text-[#0a0a0a] transition-colors duration-200 group-hover:text-[#ff4e11]"
+        style={{
+          fontFamily: "'Barlow Condensed', sans-serif",
+          fontWeight: 800,
+          fontSize: "clamp(36px,4.5vw,72px)",
+          lineHeight: "clamp(44px,7vw,92px)",
+          textTransform: "uppercase",
+        }}
+      >
+        {p.title}
+      </h3>
+      <p
+        className="text-[#666] text-[16px] text-left lg:text-right whitespace-nowrap lg:ml-8"
+        style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif", fontStyle: "italic" }}
+      >
+        {p.cat}
+      </p>
+    </div>
+  );
+
+  return (
+    <div
+      ref={ref}
+      id={`project-${index}`}
+      className="relative border-b border-[#eaeaea] group cursor-pointer scroll-mt-[100px]"
+      style={revealStyle(visible, index * 90)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {p.href ? <a href={p.href} className="block">{Row}</a> : Row}
+    </div>
+  );
+}
+
 function ProjectsSection() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -728,45 +825,13 @@ function ProjectsSection() {
       onMouseMove={handleMouseMove}
     >
       {PROJECTS.map((p, i) => (
-        <div
+        <ProjectRow
           key={p.title}
-          id={`project-${i}`}
-          className="relative border-b border-[#eaeaea] group cursor-pointer scroll-mt-[100px]"
+          p={p}
+          index={i}
           onMouseEnter={() => setHovered(i)}
           onMouseLeave={() => setHovered(null)}
-        >
-          {(() => {
-            const Row = (
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6 lg:py-10">
-                <h3
-                  className="text-[#0a0a0a] transition-colors duration-200 group-hover:text-[#ff4e11]"
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontWeight: 800,
-                    fontSize: "clamp(36px,4.5vw,72px)",
-                    lineHeight: "clamp(44px,7vw,92px)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {p.title}
-                </h3>
-                <p
-                  className="text-[#666] text-[16px] text-left lg:text-right whitespace-nowrap lg:ml-8"
-                  style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif", fontStyle: "italic" }}
-                >
-                  {p.cat}
-                </p>
-              </div>
-            );
-            return p.href ? (
-              <a href={p.href} className="block">
-                {Row}
-              </a>
-            ) : (
-              Row
-            );
-          })()}
-        </div>
+        />
       ))}
 
       {/* Floating preview — uniform box, blurred backdrop fills the letterbox */}
@@ -817,8 +882,9 @@ function GalleryRow({ reverse = false }: { reverse?: boolean }) {
 }
 
 function GallerySection() {
+  const [ref, visible] = useRevealed<HTMLElement>(0.05);
   return (
-    <section className="bg-white py-20 overflow-hidden flex flex-col gap-10">
+    <section ref={ref} className="bg-white py-20 overflow-hidden flex flex-col gap-10" style={revealStyle(visible)}>
       <GalleryRow />
       <GalleryRow reverse />
     </section>
@@ -833,33 +899,46 @@ const TOOLS = [
   { skill: "기타 도구", tools: "Git / VS Code / Notion" },
 ];
 
+function ToolRow({ t, index }: { t: (typeof TOOLS)[number]; index: number }) {
+  const [ref, visible] = useRevealed<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className="border-b border-[#eaeaea] flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6"
+      style={revealStyle(visible, index * 90)}
+    >
+      <p
+        className="text-[#1a1a1a] text-[16px]"
+        style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
+      >
+        {t.skill}
+      </p>
+      <p
+        className="text-[#666] text-[16px]"
+        style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
+      >
+        {t.tools}
+      </p>
+    </div>
+  );
+}
+
 function ToolsSection() {
+  const [headingRef, headingVisible] = useRevealed<HTMLParagraphElement>();
   return (
     <section className="bg-white flex flex-col lg:flex-row gap-8 lg:gap-20 px-6 md:px-12 lg:px-20 pt-16 lg:pt-[120px] pb-16 lg:pb-[180px]">
       <div className="shrink-0 w-full lg:w-[450px]">
         <p
+          ref={headingRef}
           className="text-[#0a0a0a] text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-tight"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, textTransform: "uppercase" }}
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, textTransform: "uppercase", ...revealStyle(headingVisible) }}
         >
           SKILLS &amp;<br />TOOLS
         </p>
       </div>
       <div className="flex-1 min-w-0">
-        {TOOLS.map((t) => (
-          <div key={t.skill} className="border-b border-[#eaeaea] flex flex-col lg:flex-row lg:items-center justify-between gap-1 py-6">
-            <p
-              className="text-[#1a1a1a] text-[16px]"
-              style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
-            >
-              {t.skill}
-            </p>
-            <p
-              className="text-[#666] text-[16px]"
-              style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
-            >
-              {t.tools}
-            </p>
-          </div>
+        {TOOLS.map((t, i) => (
+          <ToolRow key={t.skill} t={t} index={i} />
         ))}
       </div>
     </section>
@@ -872,6 +951,7 @@ export function ContactSection() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
+  const [bodyRef, bodyVisible] = useRevealed<HTMLDivElement>();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -921,7 +1001,7 @@ export function ContactSection() {
       </div>
 
       {/* Body */}
-      <div className="ml-auto lg:mr-[12vw] flex w-full max-w-[880px] flex-col gap-7 px-6 pt-10">
+      <div ref={bodyRef} className="ml-auto lg:mr-[12vw] flex w-full max-w-[880px] flex-col gap-7 px-6 pt-10" style={revealStyle(bodyVisible)}>
         {/* Contact info */}
         <div className="flex w-full flex-col gap-2">
           <p

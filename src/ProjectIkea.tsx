@@ -227,7 +227,7 @@ export default function ProjectIkea() {
           <div className="aspect-[1376/768] overflow-hidden rounded-[20px] bg-[#f5f5f5]">
             <img
               src={coverPhoto}
-              alt="리디자인한 IKEA Korea 메인 페이지의 카테고리 퀵 진입과 히어로 배너"
+              alt="리디자인한 IKEA Korea 사이트에 실제로 쓰인 밝은 스칸디나비안 거실 히어로 이미지"
               className="h-full w-full object-cover"
             />
           </div>

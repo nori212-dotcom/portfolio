@@ -705,6 +705,10 @@ function SkillsSection() {
           </p>
           <a
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToElementWithOffset("contact", 100);
+            }}
             className="group inline-flex items-center gap-2 text-[#2e2d2d] text-[16px] relative"
             style={{ fontFamily: "'Space Grotesk:Regular', 'Wanted Sans:Regular', sans-serif" }}
           >

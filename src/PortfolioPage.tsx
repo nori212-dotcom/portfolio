@@ -389,7 +389,7 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
 }
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
-const SKILL_TAGS = ["Art Direction", "Web Design", "Branding", "Motion Design", "HTML"];
+const SKILL_TAGS = ["Frontend Development", "Backend Development", "React", "TypeScript", "Git"];
 
 function Hero({ loaded }: { loaded: boolean }) {
   const introLines = ["안녕하세요.", "아이디어를 코드로 구현하는", "개발자 이승운입니다."];
@@ -514,7 +514,7 @@ function Hero({ loaded }: { loaded: boolean }) {
             animationDelay: "700ms",
           } : { opacity: 0 }}
         >
-          {[["Art Direction", "Web Design"], ["Branding", "Motion Design", "HTML"]].map((row, ri) => (
+          {[["Frontend Development", "Backend Development"], ["React", "TypeScript", "Git"]].map((row, ri) => (
             <div key={ri} className="flex gap-2">
               {row.map((tag) => (
                 <span

@@ -6,7 +6,9 @@ import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e72
 import coupangCover from "@/imports/coupang/cover.jpg";
 import ikeaCover from "@/imports/ikea/interior.jpg";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
+import circularDotsLottie from "@/imports/lottie/loop-circular-dots.json";
 import { sendContactMessage } from "@/lib/contact";
+import { Lottie } from "lottie-react";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
 export const RESUME_URL = "/resume.pdf";
@@ -1008,7 +1010,13 @@ export function ContactSection() {
       </div>
 
       {/* Body */}
-      <div ref={bodyRef} className="ml-auto lg:mr-[12vw] flex w-full max-w-[880px] flex-col gap-7 px-6 pt-10" style={revealStyle(bodyVisible)}>
+      <div ref={bodyRef} className="ml-auto lg:mr-[12vw] flex w-full max-w-[1180px] flex-col gap-7 px-6 pt-10 lg:flex-row lg:items-end lg:gap-16" style={revealStyle(bodyVisible)}>
+        {/* Circular dots animation */}
+        <div className="hidden h-[300px] w-[300px] shrink-0 items-center justify-center lg:flex">
+          <Lottie src={circularDotsLottie} loop autoplay className="h-full w-full" />
+        </div>
+
+        <div className="flex w-full max-w-[880px] flex-col gap-7">
         {/* Contact info */}
         <div className="flex w-full flex-col gap-2">
           <p
@@ -1099,6 +1107,7 @@ export function ContactSection() {
             ))}
           </div>
         </form>
+        </div>
       </div>
     </section>
   );

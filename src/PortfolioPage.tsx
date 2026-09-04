@@ -1280,7 +1280,7 @@ export default function PortfolioPage() {
               className="bg-white overflow-hidden"
               style={{ paddingBottom: 0 }}
             >
-              <Marquee items={["Development_", "Design_", "Branding_"]} />
+              <Marquee items={["Development_", "React_", "Python_"]} />
             </section>
             {/*
               Blob: top ~810 px from wrapper top

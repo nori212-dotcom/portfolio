@@ -1010,13 +1010,13 @@ export function ContactSection() {
       </div>
 
       {/* Body */}
-      <div ref={bodyRef} className="ml-auto lg:mr-[12vw] flex w-full max-w-[1180px] flex-col gap-7 px-6 pt-10 lg:flex-row lg:items-end lg:gap-16" style={revealStyle(bodyVisible)}>
-        {/* Circular dots animation */}
-        <div className="hidden h-[300px] w-[300px] shrink-0 items-center justify-center lg:flex">
-          <Lottie src={circularDotsLottie} loop autoplay className="h-full w-full" />
+      <div ref={bodyRef} className="flex w-full flex-col gap-7 px-6 pt-10 lg:flex-row lg:items-end lg:pr-[12vw]" style={revealStyle(bodyVisible)}>
+        {/* Circular dots animation, centered in the empty space to the left */}
+        <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
+          <Lottie src={circularDotsLottie} loop autoplay className="h-[300px] w-[300px]" />
         </div>
 
-        <div className="flex w-full max-w-[880px] flex-col gap-7">
+        <div className="ml-auto flex w-full max-w-[880px] shrink-0 flex-col gap-7">
         {/* Contact info */}
         <div className="flex w-full flex-col gap-2">
           <p

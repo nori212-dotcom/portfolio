@@ -1,52 +1,85 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a745f887b21.png";
 import { BottomBlurVeil, ContactSection, FooterBar, GITHUB_URL, PROJECTS, RESUME_URL } from "@/PortfolioPage";
 import { sendContactMessage } from "@/lib/contact";
 
 const INTERESTS = ["브랜딩", "디자인 콘셉트", "앱 디자인", "안드로이드 개발", "iOS 개발", "로고", "웹 디자인"];
 
-function ArrowIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export function ContactHeader() {
   const onContactPage = window.location.pathname.replace(/\/+$/, "") === "/contact";
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => setLoaded(true), []);
+  const pill = (active: boolean) =>
+    `rounded-full px-4 py-1 text-sm transition-colors duration-200 ${active ? "bg-[#0a0a0a] text-white" : "bg-[#f5f5f5] hover:bg-[#0a0a0a] hover:text-white"}`;
+  const navFont = { fontFamily: "'Space Grotesk:Medium', sans-serif", fontWeight: 500 } as const;
+
   return (
-    <header className="border-b border-black/10 bg-white" style={{ animation: "fade-in 0.7s ease both" }}>
-      <div className="flex items-center justify-between px-6 py-4 md:px-12 md:py-6">
-        <a href="/" className="text-[20px] md:text-[28px] font-bold tracking-[-1.5px] text-[#ff4e11]" style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700 }}>
-          Seung Woon
-        </a>
-        <nav className="hidden lg:flex items-center gap-7 text-[15px] font-bold md:gap-10" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
-          <a href="/" className="transition-colors hover:text-[#ff4e11]">HOME</a>
-          <div className="group relative">
-            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PAGES <ArrowIcon /></button>
-            <div className="invisible absolute right-0 top-full z-20 mt-3 w-32 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">GitHub</a>
-              <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block rounded px-3 py-2 hover:bg-black/5">Resume</a>
+    <header className="relative z-40 border-b border-black/10 bg-white">
+      <div className="relative flex items-center justify-between gap-4 px-6 py-4 md:px-10 md:py-5">
+        {/* nav-left */}
+        <nav className="hidden lg:flex gap-2 items-center shrink-0">
+          <a href="/" className={pill(false)} style={navFont}>HOME</a>
+          <div className="relative group py-2">
+            <button className={pill(false)} style={navFont}>PAGES</button>
+            <div className="absolute top-full left-0 pt-2 z-50 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-out">
+              <div className="bg-white border border-[#eaeaea] rounded-xl shadow-lg p-2 min-w-[120px] flex flex-col gap-1">
+                <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors whitespace-nowrap" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>GitHub</a>
+                <a href={RESUME_URL} target="_blank" rel="noreferrer" className="block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors whitespace-nowrap" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>Resume</a>
+              </div>
             </div>
           </div>
-          <div className="group relative">
-            <button className="flex items-center gap-1 transition-colors hover:text-[#ff4e11]">PROJECT <ArrowIcon /></button>
-            <div className="invisible absolute right-0 top-full z-20 mt-3 w-44 translate-y-1 rounded-lg border border-black/10 bg-white p-2 text-sm font-medium opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-              {PROJECTS.map((p, idx) => (
-                <a
-                  key={p.title}
-                  href={p.href ?? `/#project-${idx}`}
-                  className="block whitespace-nowrap rounded px-3 py-2 hover:bg-black/5"
-                >
-                  {p.title}
-                </a>
-              ))}
+          <div className="relative group py-2">
+            <button className={pill(false)} style={navFont}>PROJECT</button>
+            <div className="absolute top-full left-0 pt-2 z-50 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-out">
+              <div className="bg-white border border-[#eaeaea] rounded-xl shadow-lg p-2 min-w-[160px] flex flex-col gap-1">
+                {PROJECTS.map((p, idx) => (
+                  <a
+                    key={idx}
+                    href={p.href ?? `/#project-${idx}`}
+                    className="block whitespace-nowrap rounded-lg px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] transition-colors"
+                    style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+                  >
+                    {p.title}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-          <a href="/contact" className={onContactPage ? "text-[#ff4e11]" : "hover:text-[#ff4e11]"}>CONTACT</a>
+          <a href="/contact" className={pill(onContactPage)} style={navFont}>CONTACT</a>
         </nav>
+
+        {/* logo — absolutely centered */}
+        <a
+          href="/"
+          className="text-[22px] md:text-[28px] lg:absolute lg:left-1/2 lg:-translate-x-1/2 text-[#ff4e11] whitespace-nowrap flex"
+          style={{ fontFamily: "'Space Grotesk:Bold', sans-serif", fontWeight: 700, lineHeight: 1.2 }}
+        >
+          {"Seung Woon".split("").map((ch, i) => (
+            <span
+              key={i}
+              className="inline-block"
+              style={{
+                ...(loaded ? {
+                  animationName: "letter-rise",
+                  animationDuration: "0.5s",
+                  animationTimingFunction: "cubic-bezier(0.22,1,0.36,1)",
+                  animationFillMode: "both",
+                  animationDelay: `${i * 60}ms`,
+                } : { opacity: 0 }),
+              }}
+            >
+              {ch === " " ? " " : ch}
+            </span>
+          ))}
+        </a>
+
+        {/* nav-right */}
+        <div className="hidden lg:flex items-center gap-6 justify-end shrink-0">
+          <span className="text-[#262626] text-[16px]" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
+            Soyul8363@GMAIL.COM
+          </span>
+        </div>
 
         {/* mobile menu toggle */}
         <button
@@ -66,28 +99,44 @@ export function ContactHeader() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-black/10 px-6 py-4 lg:hidden">
-          <nav className="flex flex-col gap-1 text-[15px] font-bold" style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}>
-            <a href="/" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-3 hover:bg-black/5">HOME</a>
+        <div className="border-t border-black/10 bg-white px-6 py-4 lg:hidden">
+          <nav className="flex flex-col gap-1">
+            <a href="/" className="rounded-lg px-3 py-3 text-left text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]" style={navFont}>HOME</a>
             {PROJECTS.map((p, idx) => (
               <a
-                key={p.title}
+                key={idx}
                 href={p.href ?? `/#project-${idx}`}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-lg px-3 py-3 hover:bg-black/5"
+                className="rounded-lg px-3 py-3 text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+                style={navFont}
               >
                 {p.title}
               </a>
             ))}
-            <div className="my-2 border-t border-black/10" />
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="rounded-lg px-3 py-3 hover:bg-black/5">GitHub</a>
-            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="rounded-lg px-3 py-3 hover:bg-black/5">Resume</a>
             <a
               href="/contact"
-              onClick={() => setMenuOpen(false)}
-              className={"rounded-lg px-3 py-3 hover:bg-black/5 " + (onContactPage ? "text-[#ff4e11]" : "")}
+              className={"rounded-lg px-3 py-3 text-[15px] hover:bg-[#f5f5f5] " + (onContactPage ? "text-[#ff4e11]" : "text-[#0a0a0a]")}
+              style={navFont}
             >
               CONTACT
+            </a>
+            <div className="my-2 border-t border-black/10" />
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-3 text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+            >
+              GitHub
+            </a>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-3 text-[15px] text-[#0a0a0a] hover:bg-[#f5f5f5]"
+              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+            >
+              Resume
             </a>
           </nav>
         </div>

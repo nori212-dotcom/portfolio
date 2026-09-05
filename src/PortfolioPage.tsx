@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import signatureImg from "@/imports/PixoraPortfolio-1/1f54c6870da8a50abff60449876f8108d669f125.png";
 import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a745f887b21.png";
+import coupangCover from "@/imports/coupang/cover.jpg";
+import coupangGallery from "@/imports/coupang/wide-hanriver.jpg";
+import ikeaCover from "@/imports/ikea/interior.jpg";
+import ikeaGallery from "@/imports/ikea/published-home.jpg";
 import gallery3 from "@/imports/PixoraPortfolio-1/19b825796c8b29c56a27f3fbc5148b1e9e4a7bf4.png";
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
-import coupangCover from "@/imports/coupang/cover.jpg";
-import ikeaCover from "@/imports/ikea/interior.jpg";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 import circularDotsLottie from "@/imports/lottie/loop-circular-dots.json";
 import { sendContactMessage } from "@/lib/contact";
@@ -17,8 +19,8 @@ export const PROJECTS = [
   { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: coupangCover, href: "/projects/coupang-eats" },
   // galleryFit only affects the bottom marquee box (480x360); the hover preview (320x210) always contains.
   { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: ikeaCover, href: "/projects/ikea", galleryFit: "cover" },
-  { title: "SPACE NEEDLE", cat: "UX/UI, 개발", img: gallery3 },
-  { title: "FABRIC", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
+  { title: "IN DEVELOPMENT", cat: "UX/UI, 개발", img: gallery3 },
+  { title: "IN DEVELOPMENT", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
 ] as { title: string; cat: string; img: string; href?: string; galleryFit?: "cover" | "contain" }[];
 
 /* ─── Scroll reveal ──────────────────────────────────────────────────────────── */
@@ -279,16 +281,27 @@ function Header({ onContactClick, loaded }: { onContactClick: () => void; loaded
             {label === "PROJECT" && (
               <div className="absolute top-full left-0 pt-2 z-50 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-out">
                 <div className="bg-white border border-[#eaeaea] rounded-xl shadow-lg p-2 min-w-[160px] flex flex-col gap-1">
-                  {PROJECTS.map((p, idx) => (
-                    <button
-                      key={p.title}
-                      onClick={() => scrollToElementWithOffset(`project-${idx}`, 100)}
-                      className="w-full text-left block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors cursor-pointer whitespace-nowrap"
-                      style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-                    >
-                      {p.title}
-                    </button>
-                  ))}
+                  {PROJECTS.map((p, idx) =>
+                    p.href ? (
+                      <a
+                        key={idx}
+                        href={p.href}
+                        className="w-full text-left block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors whitespace-nowrap"
+                        style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+                      >
+                        {p.title}
+                      </a>
+                    ) : (
+                      <button
+                        key={idx}
+                        onClick={() => scrollToElementWithOffset(`project-${idx}`, 100)}
+                        className="w-full text-left block px-4 py-2 text-sm text-[#1a1a1a] hover:bg-[#f5f5f5] rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+                        style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+                      >
+                        {p.title}
+                      </button>
+                    )
+                  )}
                 </div>
               </div>
             )}
@@ -514,7 +527,7 @@ function Hero({ loaded }: { loaded: boolean }) {
             animationDelay: "700ms",
           } : { opacity: 0 }}
         >
-          {[["Frontend Development", "Backend Development"], ["React", "TypeScript", "Git"]].map((row, ri) => (
+          {[["PLC", "HMI"], ["Python", "SCADA", "Git"]].map((row, ri) => (
             <div key={ri} className="flex gap-2">
               {row.map((tag) => (
                 <span
@@ -649,7 +662,7 @@ function SkillsSection() {
   const [bioRef, bioVisible] = useRevealed<HTMLDivElement>();
 
   return (
-    <section id="about" className="bg-[#f9f9f9] w-full scroll-mt-[100px] px-6 md:px-[clamp(40px,11vw,220px)] py-16 lg:py-[110px]">
+    <section id="about" className="bg-[#f9f9f9] w-full scroll-mt-[100px] px-6 md:px-12 lg:px-20 py-16 lg:py-[110px]">
       {/* Grid: left col = flex-1, right col = 496px — both rows share same columns */}
       <div className="grid gap-x-8 gap-y-10 lg:gap-y-[120px] grid-cols-1 lg:grid-cols-[1fr_496px]">
         {/* [Row 1, Col 1] Intro */}
@@ -832,7 +845,7 @@ function ProjectsSection() {
     >
       {PROJECTS.map((p, i) => (
         <ProjectRow
-          key={p.title}
+          key={i}
           p={p}
           index={i}
           onMouseEnter={(e) => {
@@ -845,18 +858,38 @@ function ProjectsSection() {
 
       {/* Floating preview — uniform box, blurred backdrop fills the letterbox */}
       {hovered !== null && (
-        <FramedImage
-          src={PROJECTS[hovered].img}
-          alt={PROJECTS[hovered].title}
-          className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl"
-          style={{
-            width: 320,
-            height: 210,
-            left: mousePos.x,
-            top: mousePos.y,
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+        PROJECTS[hovered].href ? (
+          <FramedImage
+            src={PROJECTS[hovered].img}
+            alt={PROJECTS[hovered].title}
+            className="pointer-events-none absolute z-20 rounded-2xl shadow-2xl"
+            style={{
+              width: 320,
+              height: 210,
+              left: mousePos.x,
+              top: mousePos.y,
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+        ) : (
+          <div
+            className="pointer-events-none absolute z-20 flex items-center justify-center rounded-2xl bg-[#0a0a0a] shadow-2xl"
+            style={{
+              width: 320,
+              height: 210,
+              left: mousePos.x,
+              top: mousePos.y,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <span
+              className="text-white/70 text-[15px] uppercase tracking-[0.14em]"
+              style={{ fontFamily: "'Space Grotesk:Medium', sans-serif" }}
+            >
+              In Development
+            </span>
+          </div>
+        )
       )}
     </section>
   );
@@ -864,7 +897,13 @@ function ProjectsSection() {
 
 /* ─── Gallery ────────────────────────────────────────────────────────────────── */
 // One representative image per project.
-const GALLERY_IMAGES = PROJECTS.map((p) => ({ img: p.img, fit: p.galleryFit }));
+// Bottom marquee shows finished-project photos only (Space Needle / Fabric are still in development).
+const GALLERY_IMAGES = [
+  { img: coupangCover, fit: undefined },
+  { img: coupangGallery, fit: undefined },
+  { img: ikeaCover, fit: "cover" as const },
+  { img: ikeaGallery, fit: "cover" as const },
+];
 
 function GalleryRow({ reverse = false }: { reverse?: boolean }) {
   const imgs = [...GALLERY_IMAGES, ...GALLERY_IMAGES, ...GALLERY_IMAGES];
@@ -902,7 +941,7 @@ function GallerySection() {
 
 /* ─── Skills & Tools ─────────────────────────────────────────────────────────── */
 const TOOLS = [
-  { skill: "프론트엔드 개발", tools: "HTML / CSS / JavaScript" },
+  { skill: "프론트엔드 개발", tools: "HTML / CSS / JavaScript / React" },
   { skill: "영상 편집 & 모션", tools: "Premiere Pro / After Effects" },
   { skill: "디자인 & 프로토타이핑", tools: "Figma / Photoshop / Illustrator" },
   { skill: "기타 도구", tools: "Git / VS Code / Notion" },

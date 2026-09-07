@@ -995,7 +995,7 @@ function ToolsSection() {
 
 /* ─── Contact / Footer ───────────────────────────────────────────────────────── */
 export function ContactSection() {
-  const [form, setForm] = useState({ type: "", name: "", email: "", msg: "" });
+  const [form, setForm] = useState({ subject: "", name: "", email: "", msg: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
@@ -1009,12 +1009,12 @@ export function ContactSection() {
       name: form.name,
       email: form.email,
       message: form.msg,
-      type: form.type,
+      subject: form.subject,
     });
     setSending(false);
     if (ok) {
       setSent(true);
-      setForm({ type: "", name: "", email: "", msg: "" });
+      setForm({ subject: "", name: "", email: "", msg: "" });
       setTimeout(() => setSent(false), 3000);
     } else {
       setError(true);
@@ -1076,7 +1076,7 @@ export function ContactSection() {
         <form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
           <div className="flex flex-col gap-3 md:flex-row md:gap-5">
             {[
-              { key: "type", label: "프로젝트 유형", placeholder: "개인 포트폴리오" },
+              { key: "subject", label: "제목", placeholder: "제목을 입력하세요" },
               { key: "name", label: "이름", placeholder: "이름을 입력하세요" },
               { key: "email", label: "이메일 주소", placeholder: "이메일 주소를 입력하세요" },
             ].map(({ key, label, placeholder }) => (

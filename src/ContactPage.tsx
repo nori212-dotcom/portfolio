@@ -165,6 +165,7 @@ export default function ContactPage() {
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
+      subject: String(data.get("subject") ?? ""),
       type: selected.join(", "),
     });
     setSending(false);
@@ -238,6 +239,10 @@ export default function ContactPage() {
                   <input required type="email" name="email" placeholder="이메일 주소를 입력해 주세요" className="w-full bg-transparent text-xl outline-none placeholder:text-black/30" />
                 </label>
               </div>
+              <label className="block border-b border-black/15 py-7">
+                <span className="mb-3 block text-sm tracking-[0.08em] text-black/50" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>제목</span>
+                <input name="subject" placeholder="제목을 입력해 주세요" className="w-full bg-transparent text-xl outline-none placeholder:text-black/30" />
+              </label>
               <label className="block border-b border-black/15 py-7">
                 <span className="mb-3 block text-sm tracking-[0.08em] text-black/50" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>어떤 도움이 필요하신가요?</span>
                 <textarea required rows={3} name="message" placeholder="프로젝트에 대해 알려 주세요" className="w-full resize-none bg-transparent text-xl outline-none placeholder:text-black/30" />

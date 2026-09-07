@@ -8,6 +8,7 @@ export type ContactPayload = {
   name: string;
   email: string;
   message: string;
+  subject?: string;
   type?: string;
 };
 
@@ -19,6 +20,7 @@ export async function sendContactMessage(payload: ContactPayload): Promise<boole
       {
         name: payload.name,
         email: payload.email,
+        subject: payload.subject ?? "",
         message: payload.type ? `[${payload.type}] ${payload.message}` : payload.message,
         time: new Date().toLocaleString("ko-KR"),
       },

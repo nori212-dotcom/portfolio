@@ -10,7 +10,6 @@ import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e72
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 import circularDotsLottie from "@/imports/lottie/loop-circular-dots.json";
 import { sendContactMessage } from "@/lib/contact";
-import { Recaptcha } from "@/lib/recaptcha";
 import { Lottie } from "lottie-react";
 
 export const GITHUB_URL = "https://github.com/nori212-dotcom/portfolio";
@@ -1000,16 +999,10 @@ export function ContactSection() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
   const [bodyRef, bodyVisible] = useRevealed<HTMLDivElement>();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaToken) {
-      setError(true);
-      return;
-    }
     setSending(true);
     setError(false);
     const ok = await sendContactMessage({
@@ -1017,11 +1010,8 @@ export function ContactSection() {
       email: form.email,
       message: form.msg,
       subject: form.subject,
-      recaptchaToken: captchaToken,
     });
     setSending(false);
-    setCaptchaToken(null);
-    setCaptchaKey((key) => key + 1);
     if (ok) {
       setSent(true);
       setForm({ subject: "", name: "", email: "", msg: "" });
@@ -1135,16 +1125,13 @@ export function ContactSection() {
             )}
             <button
               type="submit"
-              disabled={sending || sent || !captchaToken}
+              disabled={sending || sent}
               aria-label={sent ? "메시지 전송 완료" : "메시지 보내기"}
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[16px] text-black hover:bg-white/80 transition-colors duration-200 disabled:opacity-50"
               style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
             >
               {sending ? "…" : sent ? "✓" : "↗"}
             </button>
-          </div>
-          <div className="flex pt-1">
-            <Recaptcha key={captchaKey} onChange={setCaptchaToken} theme="dark" />
           </div>
           <div className="flex gap-5 pt-0">
             {[

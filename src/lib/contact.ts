@@ -10,20 +10,22 @@ export type ContactPayload = {
   message: string;
   subject?: string;
   type?: string;
-  recaptchaToken: string;
+  recaptchaToken?: string;
 };
 
 export async function sendContactMessage(payload: ContactPayload): Promise<boolean> {
   try {
-    const verifyRes = await fetch("/api/verify-recaptcha", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: payload.recaptchaToken }),
-    });
-    const verify = await verifyRes.json();
-    if (!verify.success) {
-      console.error("reCAPTCHA verification failed");
-      return false;
+    if (payload.recaptchaToken) {
+      const verifyRes = await fetch("/api/verify-recaptcha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: payload.recaptchaToken }),
+      });
+      const verify = await verifyRes.json();
+      if (!verify.success) {
+        console.error("reCAPTCHA verification failed");
+        return false;
+      }
     }
 
     await emailjs.send(

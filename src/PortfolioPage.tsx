@@ -4,7 +4,7 @@ import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a7
 import coupangCover from "@/imports/coupang/cover.jpg";
 import coupangGallery from "@/imports/coupang/wide-hanriver.jpg";
 import ikeaCover from "@/imports/ikea/interior.jpg";
-import ikeaGallery from "@/imports/ikea/published-home.jpg";
+import ikeaGallery from "@/imports/ikea/published-home-thumb.jpg";
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 import circularDotsLottie from "@/imports/lottie/loop-circular-dots.json";

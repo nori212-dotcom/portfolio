@@ -3,6 +3,7 @@ import PortfolioPage from "@/PortfolioPage";
 import ContactPage from "@/ContactPage";
 import ProjectCoupangEats from "@/ProjectCoupangEats";
 import ProjectIkea from "@/ProjectIkea";
+import ProjectIkeaDev from "@/ProjectIkeaDev";
 
 function WheelScrollSmoother() {
   useEffect(() => {
@@ -135,6 +136,7 @@ export default function App() {
   const isContactPage = path === "/contact";
   const isCoupangProject = path === "/projects/coupang-eats";
   const isIkeaProject = path === "/projects/ikea";
+  const isIkeaDevProject = path === "/projects/ikea-dev";
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -171,6 +173,8 @@ export default function App() {
         <ProjectCoupangEats />
       ) : isIkeaProject ? (
         <ProjectIkea />
+      ) : isIkeaDevProject ? (
+        <ProjectIkeaDev />
       ) : (
         <PortfolioPage />
       )}

@@ -5,7 +5,6 @@ import coupangCover from "@/imports/coupang/cover.jpg";
 import coupangGallery from "@/imports/coupang/wide-hanriver.jpg";
 import ikeaCover from "@/imports/ikea/interior.jpg";
 import ikeaGallery from "@/imports/ikea/published-home.jpg";
-import gallery3 from "@/imports/PixoraPortfolio-1/19b825796c8b29c56a27f3fbc5148b1e9e4a7bf4.png";
 import gallery4 from "@/imports/PixoraPortfolio-1/2681fdb0d6c2a73fc995a57a883e729a84f9af42.png";
 import svgPaths from "@/imports/PixoraPortfolio-1/svg-keyty4nbmm";
 import circularDotsLottie from "@/imports/lottie/loop-circular-dots.json";
@@ -18,8 +17,8 @@ export const RESUME_URL = "/resume.pdf";
 export const PROJECTS = [
   { title: "COUPANG EATS", cat: "광고 영상, 포트폴리오", img: coupangCover, href: "/projects/coupang-eats" },
   // galleryFit only affects the bottom marquee box (480x360); the hover preview (320x210) always contains.
-  { title: "IKEA", cat: "홈페이지 리디자인, 웹 개발", img: ikeaCover, href: "/projects/ikea", galleryFit: "cover" },
-  { title: "IN DEVELOPMENT", cat: "UX/UI, 개발", img: gallery3 },
+  { title: "IKEA", cat: "홈페이지 리디자인, UX 리서치", img: ikeaCover, href: "/projects/ikea", galleryFit: "cover" },
+  { title: "IKEA · DEV", cat: "프론트엔드 개발, 디자인 시스템 구현", img: ikeaGallery, href: "/projects/ikea-dev", galleryFit: "cover" },
   { title: "IN DEVELOPMENT", cat: "모션 디자인, 디자인 디렉션", img: gallery4 },
 ] as { title: string; cat: string; img: string; href?: string; galleryFit?: "cover" | "contain" }[];
 
@@ -1259,10 +1258,12 @@ export function ProjectCTAGroup({ children }: { children: React.ReactNode }) {
 export function ProjectCTAButton({
   href,
   variant = "black",
+  external = true,
   children,
 }: {
   href: string;
   variant?: "orange" | "black";
+  external?: boolean;
   children: React.ReactNode;
 }) {
   const colors =
@@ -1272,8 +1273,8 @@ export function ProjectCTAButton({
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
       className={
         "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_20px_rgba(0,0,0,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)] " +
         colors

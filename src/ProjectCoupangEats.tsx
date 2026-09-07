@@ -192,7 +192,7 @@ export default function ProjectCoupangEats() {
           >
             좋은 순간엔,
             <br />
-            <span style={{ color: SKY }}>맛있는</span> 선택
+            <span style={{ color: "#ff4e11" }}>맛있는</span> 선택
           </h1>
           <p
             className="mt-7 max-w-[640px] text-[19px] leading-[1.6] text-black/70"

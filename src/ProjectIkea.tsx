@@ -199,7 +199,7 @@ export default function ProjectIkea() {
           >
             공간이 아니라,
             <br />
-            <span style={{ color: BLUE }}>구조</span>가 말을 걸도록
+            <span style={{ color: "#ff4e11" }}>구조</span>가 말을 걸도록
           </h1>
           <p
             className="mt-7 max-w-[640px] text-[19px] leading-[1.6] text-black/70"

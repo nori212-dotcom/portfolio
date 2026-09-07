@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BottomBlurVeil, ContactSection, FooterBar } from "@/PortfolioPage";
+import { BottomBlurVeil, ContactSection, FooterBar, ProjectCTAButton, ProjectCTAGroup } from "@/PortfolioPage";
 import { ContactHeader } from "@/ContactPage";
 import coverPhoto from "@/imports/ikea/cover.jpg";
 import wireToHifi from "@/imports/ikea/wire-to-hifi.jpg";
@@ -208,15 +208,17 @@ export default function ProjectIkea() {
             목적형 쇼핑을 방해하던 IKEA Korea 온라인몰을, 사용자 여정 분석부터
             25종 페이지 퍼블리싱까지 다시 설계한 ESG 웹사이트 리뉴얼 제안입니다.
           </p>
-          <a
-            href={PLAN_PDF_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] text-white transition-colors hover:opacity-90"
-            style={{ fontFamily: "'Wanted Sans:Medium', sans-serif", background: BLUE }}
-          >
-            기획서 보기 ↗
-          </a>
+          <ProjectCTAGroup>
+            <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
+              기획서 보기
+            </ProjectCTAButton>
+            <ProjectCTAButton href={LIVE_URL} variant="black">
+              라이브 사이트 열기
+            </ProjectCTAButton>
+            <ProjectCTAButton href={REPO_URL} variant="black">
+              GitHub 저장소
+            </ProjectCTAButton>
+          </ProjectCTAGroup>
         </section>
 
         {/* ── Cover image ──────────────────────────────────────── */}
@@ -592,26 +594,6 @@ export default function ProjectIkea() {
           </div>
           <div className="mt-10 overflow-hidden rounded-[20px] border border-black/10 bg-white">
             <img src={publishedHome} alt="퍼블리싱된 IKEA 리디자인 메인 페이지" className="w-full object-cover" />
-          </div>
-          <div className="mx-auto mt-8 flex max-w-[1180px] flex-wrap gap-3 px-4">
-            <a
-              href={LIVE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full px-6 py-3 text-[15px] text-white transition-colors hover:opacity-90"
-              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif", background: BLUE }}
-            >
-              라이브 사이트 열기 ↗
-            </a>
-            <a
-              href={REPO_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-black/15 px-6 py-3 text-[15px] transition-colors hover:border-black"
-              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-            >
-              GitHub 저장소 ↗
-            </a>
           </div>
         </section>
 

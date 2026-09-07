@@ -1251,6 +1251,49 @@ export function BottomBlurVeil() {
   );
 }
 
+/* ─── Project detail-page CTA buttons — shared black/orange style ────────────── */
+export function ProjectCTAGroup({ children }: { children: React.ReactNode }) {
+  return <div className="mt-8 flex flex-wrap gap-3">{children}</div>;
+}
+
+export function ProjectCTAButton({
+  href,
+  variant = "black",
+  children,
+}: {
+  href: string;
+  variant?: "orange" | "black";
+  children: React.ReactNode;
+}) {
+  const colors =
+    variant === "orange"
+      ? "bg-[#ff4e11] hover:bg-[#e6440d]"
+      : "bg-[#0a0a0a] hover:bg-black/80";
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={
+        "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_20px_rgba(0,0,0,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)] " +
+        colors
+      }
+      style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+    >
+      {children}
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 12 12"
+        fill="none"
+        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      >
+        <path d="M2 10L10 2M10 9V2H3" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </a>
+  );
+}
+
 /* ─── Root ───────────────────────────────────────────────────────────────────── */
 function CursorFollower() {
   const cursorRef = useRef<HTMLDivElement>(null);

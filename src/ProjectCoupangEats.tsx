@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BottomBlurVeil, ContactSection, FooterBar } from "@/PortfolioPage";
+import { BottomBlurVeil, ContactSection, FooterBar, ProjectCTAButton, ProjectCTAGroup } from "@/PortfolioPage";
 import { ContactHeader } from "@/ContactPage";
 import coverImg from "@/imports/coupang/cover.jpg";
 import wideHanriver from "@/imports/coupang/wide-hanriver.jpg";
@@ -201,15 +201,17 @@ export default function ProjectCoupangEats() {
             브랜드 인지도 강화와 시장 점유율 확대를 위한 쿠팡이츠 광고 영상 비주얼
             디자인 기획안. 한강의 봄을 배경으로 청춘의 연결감을 담은 감성 캠페인입니다.
           </p>
-          <a
-            href={PLAN_PDF_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-6 py-3 text-[15px] text-white transition-colors hover:bg-black/80"
-            style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-          >
-            기획서 보기 ↗
-          </a>
+          <ProjectCTAGroup>
+            <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
+              기획서 보기
+            </ProjectCTAButton>
+            <ProjectCTAButton href={VIDEO_ORIGINAL_URL} variant="black">
+              원본 영상 보기
+            </ProjectCTAButton>
+            <ProjectCTAButton href={STORYBOARD_URL} variant="black">
+              스토리보드 (Figma)
+            </ProjectCTAButton>
+          </ProjectCTAGroup>
         </section>
 
         {/* ── Cover image ──────────────────────────────────────── */}
@@ -572,26 +574,6 @@ export default function ProjectCoupangEats() {
             >
               <source src="/projects/coupang-eats.mp4" type="video/mp4" />
             </video>
-          </div>
-          <div className="mx-auto mt-8 flex max-w-[1180px] flex-wrap gap-3 px-4 md:px-4">
-            <a
-              href={VIDEO_ORIGINAL_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full bg-[#0a0a0a] px-6 py-3 text-[15px] text-white transition-colors hover:bg-black/80"
-              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-            >
-              원본 영상 보기 ↗
-            </a>
-            <a
-              href={STORYBOARD_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-black/15 px-6 py-3 text-[15px] transition-colors hover:border-black"
-              style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-            >
-              스토리보드 (Figma) ↗
-            </a>
           </div>
         </section>
 

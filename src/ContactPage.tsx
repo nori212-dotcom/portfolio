@@ -250,7 +250,7 @@ export default function ContactPage() {
                 )}
                 <button
                   type="submit"
-                  disabled={sending}
+                  disabled={sending || sent}
                   className="rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:scale-[1.03] disabled:opacity-50"
                   style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
                 >

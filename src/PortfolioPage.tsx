@@ -1118,14 +1118,19 @@ export function ContactSection() {
                 전송에 실패했어요. 잠시 후 다시 시도해주세요.
               </p>
             )}
+            {sent && (
+              <p className="text-[13px] text-white/70" style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}>
+                메시지가 전송됐어요!
+              </p>
+            )}
             <button
               type="submit"
-              disabled={sending}
-              aria-label="Send message"
-              className="after:content-['↗'] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[0px] text-black after:text-[18px] hover:bg-white/80 transition-colors duration-200 disabled:opacity-50"
+              disabled={sending || sent}
+              aria-label={sent ? "메시지 전송 완료" : "메시지 보내기"}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[16px] text-black hover:bg-white/80 transition-colors duration-200 disabled:opacity-50"
               style={{ fontFamily: "'Wanted Sans:SemiBold', sans-serif" }}
             >
-              {sending ? "전송 중" : sent ? "전송 완료 ✓" : "메시지 보내기"}
+              {sending ? "…" : sent ? "✓" : "↗"}
             </button>
           </div>
           <div className="flex gap-5 pt-0">

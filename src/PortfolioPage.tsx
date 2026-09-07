@@ -527,7 +527,7 @@ function Hero({ loaded }: { loaded: boolean }) {
             animationDelay: "700ms",
           } : { opacity: 0 }}
         >
-          {[["PLC", "HMI"], ["Python", "SCADA", "Git"]].map((row, ri) => (
+          {[["HTML", "CSS"], ["JavaScript", "React", "Python"]].map((row, ri) => (
             <div key={ri} className="flex gap-2">
               {row.map((tag) => (
                 <span
@@ -941,7 +941,7 @@ function GallerySection() {
 
 /* ─── Skills & Tools ─────────────────────────────────────────────────────────── */
 const TOOLS = [
-  { skill: "프론트엔드 개발", tools: "HTML / CSS / JavaScript / React" },
+  { skill: "프론트엔드 개발", tools: "HTML / CSS / JavaScript / React / Python" },
   { skill: "영상 편집 & 모션", tools: "Premiere Pro / After Effects" },
   { skill: "디자인 & 프로토타이핑", tools: "Figma / Photoshop / Illustrator" },
   { skill: "기타 도구", tools: "Git / VS Code / Notion" },

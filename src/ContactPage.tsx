@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import heroImg from "@/imports/PixoraPortfolio-1/b72de90d96d7c72b63a72133dc5e5a745f887b21.png";
 import { BottomBlurVeil, ContactSection, FooterBar, GITHUB_URL, PROJECTS, RESUME_URL } from "@/PortfolioPage";
 import { sendContactMessage } from "@/lib/contact";
+import { Recaptcha } from "@/lib/recaptcha";
 
 const INTERESTS = ["브랜딩", "디자인 콘셉트", "앱 디자인", "안드로이드 개발", "iOS 개발", "로고", "웹 디자인"];
 
@@ -150,6 +151,8 @@ export default function ContactPage() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const toggleInterest = (interest: string) => {
     setSelected((items) => items.includes(interest) ? items.filter((item) => item !== interest) : [...items, interest]);
@@ -158,6 +161,10 @@ export default function ContactPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
+    if (!captchaToken) {
+      setError(true);
+      return;
+    }
     const data = new FormData(form);
     setSending(true);
     setError(false);
@@ -167,8 +174,11 @@ export default function ContactPage() {
       message: String(data.get("message") ?? ""),
       subject: String(data.get("subject") ?? ""),
       type: selected.join(", "),
+      recaptchaToken: captchaToken,
     });
     setSending(false);
+    setCaptchaToken(null);
+    setCaptchaKey((key) => key + 1);
     if (ok) {
       setSent(true);
       form.reset();
@@ -247,20 +257,23 @@ export default function ContactPage() {
                 <span className="mb-3 block text-sm tracking-[0.08em] text-black/50" style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}>어떤 도움이 필요하신가요?</span>
                 <textarea required rows={3} name="message" placeholder="프로젝트에 대해 알려 주세요" className="w-full resize-none bg-transparent text-xl outline-none placeholder:text-black/30" />
               </label>
-              <div className="flex items-center justify-end gap-4 pt-8">
-                {error && (
-                  <p className="text-sm text-red-500" style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}>
-                    전송에 실패했어요. 잠시 후 다시 시도해주세요.
-                  </p>
-                )}
-                <button
-                  type="submit"
-                  disabled={sending || sent}
-                  className="rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:scale-[1.03] disabled:opacity-50"
-                  style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
-                >
-                  {sending ? "전송 중" : sent ? "전송 완료" : "메시지 보내기"} ↗
-                </button>
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-8">
+                <Recaptcha key={captchaKey} onChange={setCaptchaToken} theme="light" />
+                <div className="ml-auto flex items-center gap-4">
+                  {error && (
+                    <p className="text-sm text-red-500" style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}>
+                      전송에 실패했어요. 잠시 후 다시 시도해주세요.
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={sending || sent || !captchaToken}
+                    className="rounded-full bg-black px-8 py-4 text-sm text-white transition-transform hover:scale-[1.03] disabled:opacity-50"
+                    style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+                  >
+                    {sending ? "전송 중" : sent ? "전송 완료" : "메시지 보내기"} ↗
+                  </button>
+                </div>
               </div>
             </div>
           </form>

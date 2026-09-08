@@ -133,7 +133,13 @@ export default function ProjectIkeaDev() {
             에서 확인하실 수 있습니다.
           </p>
           <ProjectCTAGroup>
-            <ProjectCTAButton href={LIVE_URL} variant="orange">
+            <ProjectCTAButton
+              href={LIVE_URL}
+              variant="accent"
+              accentColor={BLUE}
+              accentHoverColor="#004B8B"
+              accentShadowColor="rgba(0,88,163,0.28)"
+            >
               라이브 사이트 열기
             </ProjectCTAButton>
             <ProjectCTAButton href={REPO_URL} variant="white">

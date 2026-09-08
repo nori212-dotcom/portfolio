@@ -200,7 +200,13 @@ export default function ProjectCoupangEats() {
             디자인 기획안. 한강의 봄을 배경으로 청춘의 연결감을 담은 감성 캠페인입니다.
           </p>
           <ProjectCTAGroup>
-            <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
+            <ProjectCTAButton
+              href={PLAN_PDF_URL}
+              variant="accent"
+              accentColor={SKY}
+              accentHoverColor="#0094CB"
+              accentShadowColor="rgba(0,174,239,0.28)"
+            >
               기획서 보기
             </ProjectCTAButton>
             <ProjectCTAButton href={VIDEO_ORIGINAL_URL} variant="white">

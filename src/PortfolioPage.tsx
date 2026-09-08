@@ -1258,30 +1258,47 @@ export function ProjectCTAGroup({ children }: { children: React.ReactNode }) {
 export function ProjectCTAButton({
   href,
   variant = "black",
+  accentColor,
+  accentHoverColor,
+  accentShadowColor,
   external = true,
   children,
 }: {
   href: string;
-  variant?: "orange" | "black" | "white";
+  variant?: "orange" | "black" | "white" | "accent";
+  accentColor?: string;
+  accentHoverColor?: string;
+  accentShadowColor?: string;
   external?: boolean;
   children: React.ReactNode;
 }) {
   const colors =
     variant === "orange"
-      ? "bg-[#ff4e11] hover:bg-[#e6440d] text-white"
+      ? "bg-[#ff4e11] hover:bg-[#e6440d] text-white hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)]"
       : variant === "white"
-        ? "border-2 border-[#0a0a0a] bg-white text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-white"
-        : "bg-[#0a0a0a] hover:bg-black/80 text-white";
+        ? "border-2 border-[#0a0a0a] bg-white text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-white hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)]"
+        : variant === "accent"
+          ? "text-white bg-[var(--cta-bg)] hover:bg-[var(--cta-bg-hover)] hover:shadow-[0_10px_28px_var(--cta-shadow)]"
+          : "bg-[#0a0a0a] hover:bg-black/80 text-white hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)]";
   return (
     <a
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
       className={
-        "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)] " +
+        "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold transition-all duration-200 hover:-translate-y-0.5 " +
         colors
       }
-      style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}
+      style={{
+        fontFamily: "'Wanted Sans:Medium', sans-serif",
+        ...(variant === "accent"
+          ? ({
+              "--cta-bg": accentColor,
+              "--cta-bg-hover": accentHoverColor ?? accentColor,
+              "--cta-shadow": accentShadowColor ?? "rgba(0,0,0,0.2)",
+            } as React.CSSProperties)
+          : {}),
+      }}
     >
       {children}
       <svg

@@ -171,7 +171,13 @@ export default function ProjectIkea() {
             에서 이어집니다.
           </p>
           <ProjectCTAGroup>
-            <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
+            <ProjectCTAButton
+              href={PLAN_PDF_URL}
+              variant="accent"
+              accentColor={BLUE}
+              accentHoverColor="#004B8B"
+              accentShadowColor="rgba(0,88,163,0.28)"
+            >
               기획서 보기
             </ProjectCTAButton>
             <ProjectCTAButton href={DEV_PAGE_URL} variant="white" external={false}>

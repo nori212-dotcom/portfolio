@@ -153,15 +153,13 @@ export default function ProjectIkea() {
             IKEA Korea Redesign
           </span>
           <h1
-            className="mt-7 text-[clamp(44px,7vw,104px)] leading-[1.04] tracking-[-0.035em]"
+            className="mt-7 text-[clamp(32px,4.6vw,64px)] leading-[1.15] tracking-[-0.03em]"
             style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}
           >
-            공간이 아니라,
-            <br />
-            <span style={{ color: "#ff4e11" }}>구조</span>가 말을 걸도록
+            공간이 아니라, <span style={{ color: BLUE }}>구조</span>가 말을 걸도록
           </h1>
           <p
-            className="mt-7 max-w-[640px] text-[19px] leading-[1.6] text-black/70"
+            className="mt-7 max-w-[760px] text-[19px] leading-[1.6] text-black/70"
             style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
           >
             목적형 쇼핑을 방해하던 IKEA Korea 온라인몰을, 벤치마킹·페르소나

@@ -187,12 +187,10 @@ export default function ProjectCoupangEats() {
             Coupang Eats Campaign
           </span>
           <h1
-            className="mt-7 text-[clamp(44px,7vw,104px)] leading-[1.04] tracking-[-0.035em]"
+            className="mt-7 text-[clamp(32px,4.6vw,64px)] leading-[1.15] tracking-[-0.03em]"
             style={{ fontFamily: "'Wanted Sans:Bold', sans-serif", fontWeight: 700 }}
           >
-            좋은 순간엔,
-            <br />
-            <span style={{ color: "#ff4e11" }}>맛있는</span> 선택
+            좋은 순간엔, <span style={{ color: SKY }}>맛있는</span> 선택
           </h1>
           <p
             className="mt-7 max-w-[640px] text-[19px] leading-[1.6] text-black/70"

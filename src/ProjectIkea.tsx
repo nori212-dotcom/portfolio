@@ -174,7 +174,7 @@ export default function ProjectIkea() {
             <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
               기획서 보기
             </ProjectCTAButton>
-            <ProjectCTAButton href={DEV_PAGE_URL} variant="black" external={false}>
+            <ProjectCTAButton href={DEV_PAGE_URL} variant="white" external={false}>
               개발 파트 보기
             </ProjectCTAButton>
           </ProjectCTAGroup>
@@ -260,7 +260,7 @@ export default function ProjectIkea() {
                   {p.title}
                 </h3>
                 <p
-                  className="mt-2 text-[15px] leading-[1.6] text-black/60"
+                  className="mt-2 text-[16px] leading-[1.6] text-black/60"
                   style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                 >
                   {p.body}
@@ -288,7 +288,7 @@ export default function ProjectIkea() {
                     {b.name}
                   </h3>
                   <p
-                    className="mt-3 text-[15px] leading-[1.65] text-black/60"
+                    className="mt-3 text-[16px] leading-[1.65] text-black/60"
                     style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                   >
                     {b.take}
@@ -324,7 +324,7 @@ export default function ProjectIkea() {
                     </span>
                   </h3>
                   <p
-                    className="mt-1.5 text-[15px] leading-[1.6] text-black/60"
+                    className="mt-1.5 text-[16px] leading-[1.6] text-black/60"
                     style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                   >
                     {p.body}
@@ -386,7 +386,7 @@ export default function ProjectIkea() {
                       {r.k}
                     </p>
                     <p
-                      className="mt-1 text-[15px] leading-snug"
+                      className="mt-1 text-[16px] leading-snug"
                       style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                     >
                       {r.v}
@@ -433,7 +433,7 @@ export default function ProjectIkea() {
                     {s.title}
                   </h3>
                   <p
-                    className="mt-2 max-w-[420px] text-[15px] leading-[1.65] text-black/60"
+                    className="mt-2 max-w-[420px] text-[16px] leading-[1.65] text-black/60"
                     style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                   >
                     {s.body}

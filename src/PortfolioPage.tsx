@@ -1262,21 +1262,23 @@ export function ProjectCTAButton({
   children,
 }: {
   href: string;
-  variant?: "orange" | "black";
+  variant?: "orange" | "black" | "white";
   external?: boolean;
   children: React.ReactNode;
 }) {
   const colors =
     variant === "orange"
-      ? "bg-[#ff4e11] hover:bg-[#e6440d]"
-      : "bg-[#0a0a0a] hover:bg-black/80";
+      ? "bg-[#ff4e11] hover:bg-[#e6440d] text-white"
+      : variant === "white"
+        ? "border-2 border-[#0a0a0a] bg-white text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-white"
+        : "bg-[#0a0a0a] hover:bg-black/80 text-white";
   return (
     <a
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
       className={
-        "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)] " +
+        "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)] " +
         colors
       }
       style={{ fontFamily: "'Wanted Sans:Medium', sans-serif" }}

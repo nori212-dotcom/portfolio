@@ -203,10 +203,10 @@ export default function ProjectCoupangEats() {
             <ProjectCTAButton href={PLAN_PDF_URL} variant="orange">
               기획서 보기
             </ProjectCTAButton>
-            <ProjectCTAButton href={VIDEO_ORIGINAL_URL} variant="black">
+            <ProjectCTAButton href={VIDEO_ORIGINAL_URL} variant="white">
               원본 영상 보기
             </ProjectCTAButton>
-            <ProjectCTAButton href={STORYBOARD_URL} variant="black">
+            <ProjectCTAButton href={STORYBOARD_URL} variant="white">
               스토리보드 (Figma)
             </ProjectCTAButton>
           </ProjectCTAGroup>
@@ -291,7 +291,7 @@ export default function ProjectCoupangEats() {
                   {p.title}
                 </h3>
                 <p
-                  className="mt-2 text-[15px] leading-[1.6] text-black/60"
+                  className="mt-2 text-[16px] leading-[1.6] text-black/60"
                   style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                 >
                   {p.body}
@@ -316,7 +316,7 @@ export default function ProjectCoupangEats() {
                       {p.title}
                     </h3>
                     <p
-                      className="mt-1.5 text-[15px] leading-[1.6] text-black/60"
+                      className="mt-1.5 text-[16px] leading-[1.6] text-black/60"
                       style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                     >
                       {p.body}
@@ -391,7 +391,7 @@ export default function ProjectCoupangEats() {
                     {m.title}
                   </h3>
                   <p
-                    className="mt-1.5 text-[15px] leading-[1.6] text-black/60"
+                    className="mt-1.5 text-[16px] leading-[1.6] text-black/60"
                     style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                   >
                     {m.body}

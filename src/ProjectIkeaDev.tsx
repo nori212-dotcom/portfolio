@@ -136,10 +136,10 @@ export default function ProjectIkeaDev() {
             <ProjectCTAButton href={LIVE_URL} variant="orange">
               라이브 사이트 열기
             </ProjectCTAButton>
-            <ProjectCTAButton href={REPO_URL} variant="black">
+            <ProjectCTAButton href={REPO_URL} variant="white">
               GitHub 저장소
             </ProjectCTAButton>
-            <ProjectCTAButton href={DESIGN_PAGE_URL} variant="black" external={false}>
+            <ProjectCTAButton href={DESIGN_PAGE_URL} variant="white" external={false}>
               디자인 파트 보기
             </ProjectCTAButton>
           </ProjectCTAGroup>
@@ -215,7 +215,7 @@ export default function ProjectIkeaDev() {
                     {b.title}
                   </h3>
                   <p
-                    className="mt-2 text-[15px] leading-[1.6] text-white/60"
+                    className="mt-2 text-[16px] leading-[1.6] text-white/60"
                     style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                   >
                     {b.body}
@@ -251,7 +251,7 @@ export default function ProjectIkeaDev() {
                   {h.title}
                 </h3>
                 <p
-                  className="mt-2 text-[15px] leading-[1.6] text-black/60"
+                  className="mt-2 text-[16px] leading-[1.6] text-black/60"
                   style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                 >
                   {h.body}
@@ -293,7 +293,7 @@ export default function ProjectIkeaDev() {
                   {r.v}
                 </p>
                 <p
-                  className="mt-2 text-[15px] text-black/55"
+                  className="mt-2 text-[16px] text-black/55"
                   style={{ fontFamily: "'Wanted Sans:Regular', sans-serif" }}
                 >
                   {r.k}

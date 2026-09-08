@@ -1050,8 +1050,13 @@ export function ContactSection() {
       {/* Body */}
       <div ref={bodyRef} className="flex w-full flex-col gap-7 px-6 pt-10 lg:flex-row lg:items-end lg:pr-[12vw]" style={revealStyle(bodyVisible)}>
         {/* Circular dots animation, centered in the empty space to the left */}
-        <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
+        <div className="relative hidden min-w-0 flex-1 items-center justify-center lg:flex">
           <Lottie src={circularDotsLottie} loop autoplay className="h-[300px] w-[300px]" />
+          <img
+            src={signatureImg}
+            alt="Seung Lee 서명"
+            className="pointer-events-none absolute left-1/2 top-1/2 w-[150px] -translate-x-1/2 -translate-y-1/2 object-contain"
+          />
         </div>
 
         <div className="ml-auto flex w-full max-w-[880px] shrink-0 flex-col gap-7">

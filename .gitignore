@@ -29,4 +29,3 @@ logs/
 /.figma/attachments/
 
 .vercel
-.env*

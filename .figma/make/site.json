@@ -2,7 +2,7 @@
   "title": "이승운 포트폴리오",
   "description": "아이디어를 코드로 구현하는 개발자 이승운의 포트폴리오.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,

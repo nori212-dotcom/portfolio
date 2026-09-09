@@ -209,7 +209,7 @@ export default function ContactPage() {
               시작해볼까요?
             </span>
           </h1>
-          <p className="mt-7 max-w-[620px] whitespace-normal md:whitespace-nowrap text-[15px] md:text-[20px] leading-[1.55] tracking-[-0.03em] text-black/85 md:ml-[46%] md:mt-7">
+          <p className="mt-7 max-w-[620px] whitespace-normal md:whitespace-nowrap text-[16px] md:text-[20px] leading-[1.55] tracking-[-0.03em] text-black/85 md:ml-[46%] md:mt-7">
             문의 양식을 작성해 주시면 최대한 빠르게 답변드리겠습니다.
           </p>
         </section>

@@ -1055,7 +1055,7 @@ export function ContactSection() {
           <img
             src={signatureImg}
             alt="Seung Lee 서명"
-            className="pointer-events-none absolute left-1/2 top-1/2 w-[150px] -translate-x-1/2 -translate-y-1/2 object-contain"
+            className="pointer-events-none absolute left-1/2 top-1/2 w-[150px] -translate-x-1/2 -translate-y-1/2 object-contain brightness-0 invert"
           />
         </div>
 
